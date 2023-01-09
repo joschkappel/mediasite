@@ -3,12 +3,12 @@
         <h2 class="font-semibold text-xl text-blue-800 leading-tight">
             {{ __('Fotos') }}
         </h2>
-{{--         <form method="GET" action="{{ route('foto.create') }}">
+        <form method="GET" action="{{ route('photo.create') }}">
             @csrf
             <div class="flex justify-end mt-4">
                 <x-jet-button>Upload New Foto</x-jet-button>
             </div>
-        </form> --}}
+        </form>
     </x-slot>
 
     <div class="py-12">
