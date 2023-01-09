@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\PhotoUpload;
+use App\Http\Livewire\Photo\PhotoUpload;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
-    Route::get('/stock/photo', function () { return view('livewire.photo-index'); })->name('photo.index');
+    Route::get('/stock/photo', function () { return view('livewire.photo.photo-index'); })->name('photo.index');
     Route::get('/stock/photo/create', PhotoUpload::class)->name('photo.create');
 });

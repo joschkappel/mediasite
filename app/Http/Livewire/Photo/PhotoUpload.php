@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Photo;
 
 use Livewire\Component;
 use App\Models\Photo;
@@ -32,6 +32,6 @@ class PhotoUpload extends Component
 
     public function render()
     {
-        return view('livewire.photo-upload');
+        return view('livewire.photo.upload');
     }
 }
