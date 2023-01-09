@@ -21,6 +21,6 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
-    Route::get('/stock/photo', function () { return view('livewire.photo-table'); })->name('photo.index');
+    Route::get('/stock/photo', function () { return view('livewire.photo-index'); })->name('photo.index');
     # Route::get('/stock/photo/create', PhotoUpload::class)->name('photo.create');
 });
