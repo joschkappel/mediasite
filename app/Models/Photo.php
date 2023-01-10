@@ -9,16 +9,20 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Photo extends Model
+class Photo extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this
-            ->addMediaConversion('preview')
+        $this->addMediaConversion('preview')
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
+
+        $this->addMediaConversion('thumb')
+              ->width(368)
+              ->height(232)
+              ->sharpen(10);
     }
 
     protected $fillable = [
