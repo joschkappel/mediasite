@@ -28,21 +28,23 @@ class PhotoIndex extends DataTableComponent
     {
         return [
             Column::make("ID", "id")
-            ->sortable(),
+                ->sortable(),
             Column::make("Name")
                 ->sortable()
                 ->searchable(),
             Column::make("Tags")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             BooleanColumn::make("Active")
                 ->sortable(),
             Column::make("Created at", "created_at")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Thumbnail", "id")
                 ->format(
-                    fn($value, $row, Column $column) => '<img src="'. $row->getFirstMedia()->getUrl('preview') .'" />'
+                    fn($value, $row, Column $column) => '<img src="'. $row->thumbnail .'" />'
                 )
-                ->html(),
+                ->html()
             ];
     }
 }

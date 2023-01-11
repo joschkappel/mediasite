@@ -36,6 +36,7 @@ class PhotoUpload extends Component
         ]);
 
         $saved_photo->addMedia( $this->photo->path())
+                    ->usingName($this->name)
                     ->toMediaCollection();
 
         return redirect()->route('photo.index');
