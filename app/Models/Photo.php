@@ -47,7 +47,7 @@ class Photo extends Model implements HasMedia
     {
         if ($this->hasMedia()){
             return Attribute::make(
-                get: fn ($value, $attributes) => $this->getFirstMedia()->getUrl('thumb')
+                get: fn () => $this->getFirstMedia()->getUrl('thumb')
             )->shouldCache();
         } else {
             return '';

@@ -4,6 +4,10 @@ namespace App\Http\Livewire\Photo;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ImageColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Photo;
 use Livewire\Component;
@@ -20,7 +24,9 @@ class PhotoIndex extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+             ->setHideBulkActionsWhenEmptyEnabled()
+            ;
             // ->setDebugEnabled();
     }
 
@@ -40,11 +46,56 @@ class PhotoIndex extends DataTableComponent
             Column::make("Created at", "created_at")
                 ->sortable()
                 ->searchable(),
-            Column::make("Thumbnail", "id")
-                ->format(
-                    fn($value, $row, Column $column) => '<img src="'. $row->thumbnail .'" />'
-                )
-                ->html()
+            ImageColumn::make("Thumbnail")
+                ->location(
+                    fn($row) => $row->thumbnail
+                ),
+            ButtonGroupColumn::make('Actions')
+                ->attributes(function($row) {
+                    return [
+                        'class' => 'space-x-2',
+                    ];
+                })
+                ->buttons([
+                    LinkColumn::make('Edit')
+                        ->title(fn($row) => 'Edit Metadata for "' . $row->name . '"')
+                        ->location(fn($row) => route('photo.edit', ['photo'=>$row->id]))
+                        ->attributes(function($row) {
+                            return [
+                                'class' => 'underline text-blue-500 hover:no-underline',
+                            ];
+                        }),
+                ]),
             ];
+    }
+
+    public function bulkActions(): array
+    {
+        return [
+            'activate' => 'Activate',
+            'deactivate' => 'Deactivate',
+            'delete' => 'Delete',
+        ];
+    }
+
+    public function activate()
+    {
+        Photo::whereIn('id', $this->getSelected())->update(['active' => true]);
+
+        $this->clearSelected();
+    }
+
+    public function deactivate()
+    {
+        Photo::whereIn('id', $this->getSelected())->update(['active' => false]);
+
+        $this->clearSelected();
+    }
+
+    public function delete()
+    {
+        Photo::whereIn('id', $this->getSelected())->delete();
+        $this->clearSelected();
+
     }
 }

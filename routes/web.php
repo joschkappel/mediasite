@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Photo\PhotoUpload;
+use App\Http\Livewire\Photo\PhotoEdit;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,6 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
     Route::get('/stock/photo', function () { return view('livewire.photo.photo-index'); })->name('photo.index');
+    Route::get('/stock/photo/{photo}', PhotoEdit::class)->name('photo.edit');
     Route::get('/stock/photo/create', PhotoUpload::class)->name('photo.create');
 });
