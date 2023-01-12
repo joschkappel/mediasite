@@ -94,7 +94,13 @@ class PhotoIndex extends DataTableComponent
 
     public function delete()
     {
-        Photo::whereIn('id', $this->getSelected())->delete();
+        $photos = Photo::whereIn('id', $this->getSelected())->get();
+
+        foreach ($photos as $photo){
+            $photo->clearMediaCollection();
+            $photo->delete();
+        }
+
         $this->clearSelected();
 
     }
