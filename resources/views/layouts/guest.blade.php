@@ -17,5 +17,7 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.js"></script> --}}
+        <script src="http://mediasite.test/vendor/flowbite/flowbite.min.js"></script>
     </body>
 </html>

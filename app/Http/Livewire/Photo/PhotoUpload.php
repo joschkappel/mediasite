@@ -5,6 +5,9 @@ namespace App\Http\Livewire\Photo;
 use Livewire\Component;
 use App\Models\Photo;
 use Livewire\WithFileUploads;
+use Spatie\Image\Image;
+use Spatie\Image\Manipulations;
+
 
 class PhotoUpload extends Component
 {
@@ -15,7 +18,7 @@ class PhotoUpload extends Component
     public $description;
 
     protected $rules = [
-        'photo' => 'image|max:1024', // 1MB Max
+        'photo' => 'image|max:2048', // 1MB Max
         'name' => 'required|string',
         'description' => 'required|string'
     ];
@@ -35,8 +38,20 @@ class PhotoUpload extends Component
             'description' => $this->description
         ]);
 
+        // modifying the image by adding a watermark
+        Image::load($this->photo->path())
+            ->watermark(storage_path('app/public/JKwatermark.png'))
+            ->watermarkOpacity(60)
+            ->watermarkPosition(Manipulations::POSITION_TOP_RIGHT)
+            ->watermarkHeight(10, Manipulations::UNIT_PERCENT)
+            ->watermarkWidth(10, Manipulations::UNIT_PERCENT)
+            ->watermarkPadding(10, 10, Manipulations::UNIT_PERCENT)
+            ->watermarkFit(Manipulations::FIT_STRETCH)
+            ->save();
+
         $saved_photo->addMedia( $this->photo->path())
                     ->usingName($this->name)
+                    ->withResponsiveImages()
                     ->toMediaCollection();
 
         return redirect()->route('photo.index');

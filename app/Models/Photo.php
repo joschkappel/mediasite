@@ -22,7 +22,15 @@ class Photo extends Model implements HasMedia
         $this->addMediaConversion('thumb')
               ->width(100)
               ->height(75)
-              ->sharpen(10);
+              ->sharpen(10)
+              ->nonQueued();
+
+        $this->addMediaConversion('preview')
+            ->width(400)
+            ->height(300)
+            ->nonQueued();
+
+
     }
 
     protected $fillable = [
