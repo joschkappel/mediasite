@@ -37,7 +37,9 @@ class Photo extends Model implements HasMedia
         'name',
         'description',
         'tags',
-        'active'
+        'active',
+        'watermark',
+        'watermark_color',
     ];
 
     protected $casts = [
