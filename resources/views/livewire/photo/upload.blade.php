@@ -89,7 +89,7 @@
                         <x-jet-label for="watermark_color" value="{{ __('Text Color') }}" />
                         <select id="watermark_color"  class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" name="watermark_color" wire:model.defer="watermark_color">
 
-                            <option value="l">Lime</option>
+                            <option selected value="l">Lime</option>
                             <option value="b">Black</option>
                             <option value="w">White</option>
 

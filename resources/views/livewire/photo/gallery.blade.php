@@ -1,32 +1,54 @@
 <div>
-    <div id="default-carousel" class="relative" data-carousel="static">
-        <!-- Carousel wrapper -->
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-            <!-- Items -->
-            @foreach($photos as $photo)
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="{{ $photo->getFirstMedia()->getUrl() }}" srcset="{{ $photo->getFirstMedia()->getSrcset() }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+    <div class="container mx-auto px-4 basis-full flex-nowrap">
+        <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-8">
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">01</div>
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">02</div>
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">03</div>
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">04</div>
+
+
+            <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
+                <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+                    @foreach ($photos as $photo)
+                        <button type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide-to="{{ $loop->index }}"
+                            @if ($loop->first) class="active" aria-current="true" @endif
+                            aria-label="Slide {{ $loop->index + 1 }}">
+                        </button>
+                    @endforeach
+                </div>
+                <div class="carousel-inner relative w-full overflow-hidden">
+                    @foreach ($photos as $photo)
+                        <div
+                            class="carousel-item @if ($loop->first) active @endif relative float-left w-full">
+                            <img src="{{ $photo->getFirstMedia()->getUrl() }}"
+                                srcset="{{ $photo->getFirstMEdia()->getSrcset() }}" class="block max-w-full h-auto"
+                                alt="..." />
+                            <div class="carousel-caption hidden md:block absolute text-center">
+                                <h5 class="text-xl">{{ $photo->name }}</h5>
+                                <p>{{ $photo->description }}.</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <button
+                    class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+                    type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                    class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+                    type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            @endforeach
+
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">06</div>
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">07</div>
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">08</div>
+            <div class="p-4 bg-gray-100 rounded-md flex items-center justify-center">09</div>
         </div>
-        <!-- Slider indicators -->
-        <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
-            @foreach($photos as $photo)
-                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="{{$loop->index}}"></button>
-            @endforeach
-        </div>
-        <!-- Slider controls -->
-        <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                <span class="sr-only">Previous</span>
-            </span>
-        </button>
-        <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="sr-only">Next</span>
-            </span>
-        </button>
     </div>
 </div>
