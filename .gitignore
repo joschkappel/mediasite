@@ -4,7 +4,7 @@
 /public/storage
 /public/media
 /storage/*.key
-/storage/media-library
+!/storage/app/fonts
 /vendor
 .env
 .env.prod
