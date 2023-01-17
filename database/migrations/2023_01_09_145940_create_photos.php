@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('tags');
             $table->boolean('active')->default(true);
             $table->text('description');
+            $table->string('watermark')->nullable();
+            $table->string('watermark_color')->nullable();
         });
     }
 

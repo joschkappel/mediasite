@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Photo\Gallery;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Photo\PhotoUpload;
 use App\Http\Livewire\Photo\PhotoEdit;
@@ -15,7 +16,7 @@ use App\Http\Livewire\Photo\PhotoEdit;
 |
 */
 
-Route::get('/', function () { return view('gallery'); })->name('gallery');
+Route::get('/', Gallery::class)->name('gallery');
 
 Route::middleware([
     'auth:sanctum',

@@ -4,20 +4,26 @@ namespace App\Http\Livewire\Photo;
 
 use Livewire\Component;
 use App\Models\Photo;
+use App\Traits\CreateWatermark;
 use Livewire\WithFileUploads;
+
 
 class PhotoUpload extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, CreateWatermark;
 
     public $photo;
     public $name;
     public $description;
+    public $watermark;
+    public $watermark_color;
 
     protected $rules = [
-        'photo' => 'image|max:1024', // 1MB Max
+        'photo' => 'image|max:2048', // 2MB Max
         'name' => 'required|string',
-        'description' => 'required|string'
+        'description' => 'required|string',
+        'watermark' => 'nullable|sometimes|string',
+        'watermark_color' => 'nullable|sometimes|required_with:watermark',
     ];
 
     public function deleteProfilePhoto()
@@ -32,12 +38,22 @@ class PhotoUpload extends Component
         $saved_photo = Photo::create([
             'name' =>$this->name,
             'tags' => '#protr',
-            'description' => $this->description
+            'description' => $this->description,
+            'watermark' => $this->watermark,
+            'watermark_color' => $this->watermark_color,
         ]);
+
+        // add a watermark to the image
+        if ($saved_photo->watermark){
+            $this->watermark_image($this->photo->path(), $saved_photo);
+        }
 
         $saved_photo->addMedia( $this->photo->path())
                     ->usingName($this->name)
+                    ->withResponsiveImages()
                     ->toMediaCollection();
+
+
 
         return redirect()->route('photo.index');
     }

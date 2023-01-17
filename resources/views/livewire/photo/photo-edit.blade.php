@@ -21,7 +21,7 @@
 
                         <!-- Photo Preview -->
                         <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center">
-                            <img src="{{ $photo->getFirstMedia()->getUrl('thumb') }}"/>
+                            <img src="{{ $photo->getFirstMedia()->getUrl('preview') }}"/>
                         </span>
                     </div>
                 </x-slot>
