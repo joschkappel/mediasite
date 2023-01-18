@@ -60,7 +60,9 @@ class Photo extends Model implements HasMedia
                 get: fn () => $this->getFirstMedia()->getUrl('thumb')
             )->shouldCache();
         } else {
-            return '';
+            return Attribute::make(
+                get: fn () => public_path('errors/404_not_found.jpg')
+            )->shouldCache();
         }
     }
 }

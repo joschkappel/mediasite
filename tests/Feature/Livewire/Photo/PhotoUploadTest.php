@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature\Livewire;
+namespace Tests\Feature\Livewire\Photo;
 
-use App\Http\Livewire\PhotoUpload;
+use App\Http\Livewire\Photo\PhotoUpload;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
