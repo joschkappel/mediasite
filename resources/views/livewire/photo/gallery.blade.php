@@ -21,9 +21,11 @@
                     @foreach ($photos as $photo)
                         <div
                             class="carousel-item @if ($loop->first) active @endif relative float-left w-full">
-                            <img src="{{ $photo->getFirstMedia()->getUrl() }}"
-                                srcset="{{ $photo->getFirstMEdia()->getSrcset() }}" class="block max-w-full h-auto"
-                                alt="..." />
+                            @if ($photo->hasMedia())
+                                <img src="{{ $photo->getFirstMedia()->getUrl() }}"
+                                    srcset="{{ $photo->getFirstMEdia()->getSrcset() }}" class="block max-w-full h-auto"
+                                    alt="..." />
+                            @endif
                             <div class="carousel-caption hidden md:block absolute text-center">
                                 <h5 class="text-xl">{{ $photo->name }}</h5>
                                 <p>{{ $photo->description }}.</p>
