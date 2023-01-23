@@ -10,16 +10,27 @@ use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Photo;
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 
 class PhotoIndex extends DataTableComponent
 {
-    public $project;
+    public $project = null;
+
+    protected $listeners = [
+        'showPhotos' => 'showPhotosForProject'
+    ];
+
+    public function showPhotosForProject($project_id)
+    {
+        $this->project = Project::find($project_id);
+    }
 
     public function configure(): void
     {
         $this->setPrimaryKey('id')
+            ->setAdditionalSelects(['photos.id as id'])
             ->setPaginationDisabled()
             ->setSearchDisabled()
             ->setColumnSelectDisabled()
@@ -27,16 +38,13 @@ class PhotoIndex extends DataTableComponent
             ->setEmptyMessage(__('Please select a project to get the photos'));;
         // ->setDebugEnabled();
 
-        $this->project = null;
     }
+
 
     public function builder(): Builder
     {
-        if ($this->project != null) {
-            return Photo::where('project_id', $this->project->id);
-        } else {
-            return Photo::whereNull('id');
-        }
+        return Photo::query()
+            ->when(isset($this->project), fn ($query, $filter) => $query->where('project_id', $this->project->id));
     }
 
     public function columns(): array

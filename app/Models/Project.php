@@ -15,10 +15,10 @@ class Project extends Model
         'type',
         'info_de',
         'info_en',
-        'info_date',
+        'info_time',
         'active',
         'watermark',
-        'sort_order_no',
+        'menu_position',
     ];
 
     protected $casts = [
@@ -27,4 +27,13 @@ class Project extends Model
         'active' => 'boolean',
         'type' => ProjectType::class,
     ];
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
 }

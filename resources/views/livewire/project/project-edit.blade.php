@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-blue-800 leading-tight">
-            {{ __('Create new Project') }}
+            {{ __('Edit this Project') }}
         </h2>
     </x-slot>
 
@@ -13,7 +13,7 @@
                 </x-slot>
 
                 <x-slot name="description">
-                    {{ __('Add type and information of this project') }}
+                    {{ __('Modify type and information of this project') }}
                 </x-slot>
 
                 <x-slot name="form">

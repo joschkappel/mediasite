@@ -8,9 +8,8 @@ use Livewire\Component;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Support\Facades\Log;
 
-class ProjectCreate extends Component
+class ProjectEdit extends Component
 {
-
     public $name;
     public $type;
     public $info_time, $info_de, $info_en;
@@ -18,16 +17,23 @@ class ProjectCreate extends Component
     public $menu_position;
     public $positions;
     public $set_positions;
+    public Project $project;
 
-
-    public function mount()
+    public function mount(Project $project)
     {
-        $this->type = ProjectType::PHOTOS;
-        $this->positions = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        $this->set_positions = Project::where('type', $this->type)->pluck('menu_position');
-        $this->menu_position = $this->positions->diff($this->set_positions)->first();
-    }
+        $this->project = Project::find($project->id);
+        $this->type = $project->type;
+        $this->name = $project->name;
+        $this->info_time = $project->info_time;
+        $this->info_de = $project->info_de;
+        $this->info_en = $project->info_en;
+        $this->watermark = $project->watermark;
 
+        $this->positions = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        $this->set_positions = Project::where('type', $this->type)->whereNot('id', $project->id)->pluck('menu_position');
+
+        $this->menu_position = $project->menu_position;
+    }
     public function setPosition($new_position)
     {
         $this->menu_position = $new_position;
@@ -48,12 +54,11 @@ class ProjectCreate extends Component
             'watermark' => 'nullable|sometimes|string|max:20',
         ]);
         Log::info($validData);
-        Project::create($validData);
-        $this->emit('saved');
+        $this->project->update($validData);
+        $this->emit('updated');
     }
-
     public function render()
     {
-        return view('livewire.project.project-create');
+        return view('livewire.project.project-edit');
     }
 }

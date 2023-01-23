@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('info_time'); // eg 'run during 2022' or 'from 2021 to 2022'
             $table->text('info_de')->nullable();
             $table->text('info_en')->nullable();
-            $table->tinyInteger('sort_order_no');
+            $table->tinyInteger('menu_position');
             $table->string('watermark')->nullable();
             $table->timestamps();
         });

@@ -17,11 +17,6 @@
                     </x-jet-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link :href="route('project.index')" :active="request()->routeIs(['project.index', 'project.create', 'project.edit'])">
-                        {{ __('Projects') }}
-                    </x-jet-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link :href="route('photo.index')" :active="request()->routeIs(['photo.index', 'photo.create', 'photo.edit'])">
                         {{ __('Photos') }}
                     </x-jet-nav-link>

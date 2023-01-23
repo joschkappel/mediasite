@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Enums\ProjectType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Support\Arr;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
@@ -18,13 +20,13 @@ class ProjectFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'type' => ProjectType::PHOTOS,
-            'info_time' => '2022',
-            'info_de' => fake()->text(),
-            'info_en' => fake()->text(),
-            'sort_order_no' => 1,
-            'watermark' => fake()->name()
+            'name' => fake()->word(),
+            'type' => collect(ProjectType::cases())->random(),
+            'info_time' => fake()->year('-10 years'),
+            'info_de' => fake()->text(350),
+            'info_en' => fake()->text(350),
+            'menu_position' => Arr::random([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+            'watermark' => fake()->words(3, true)
         ];
     }
 }

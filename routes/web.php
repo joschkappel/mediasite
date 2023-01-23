@@ -4,6 +4,8 @@ use App\Http\Livewire\Photo\Gallery;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Photo\PhotoUpload;
 use App\Http\Livewire\Photo\PhotoEdit;
+use App\Http\Livewire\Project\ProjectCreate;
+use App\Http\Livewire\Project\ProjectEdit;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +25,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
-    Route::get('/stock/photo', function () { return view('livewire.photo.photo-index'); })->name('photo.index');
+    Route::get('/dashboard', function () {
+        return view('projects-photos');
+    })->name('dashboard');
+    Route::get('/stock/photo', function () {
+        return view('livewire.photo.photo-index');
+    })->name('photo.index');
     Route::get('/stock/photo/create', PhotoUpload::class)->name('photo.create');
     Route::get('/stock/photo/{photo}', PhotoEdit::class)->name('photo.edit');
-    Route::get('/project', function () { return view('projects-photos'); })->name('project.index');
-    Route::get('/project/create', PhotoUpload::class)->name('project.create');
-//    Route::get('/project/{project}', ProjectEdit::class)->name('project.edit');
-
+    Route::get('/project', function () {
+        return view('projects-photos');
+    })->name('project.index');
+    Route::get('/project/create', ProjectCreate::class)->name('project.create');
+    Route::get('/project/{project}', ProjectEdit::class)->name('project.edit');
 });

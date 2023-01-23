@@ -17,9 +17,9 @@ class PhotoFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->words(2, true),
             'description' => fake()->text(),
-            'tags' => '#test'
+            'tags' => '#' . fake()->word()
         ];
     }
 }

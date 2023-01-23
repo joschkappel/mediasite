@@ -10,7 +10,7 @@
             <x-project-index />
         </div>
         <div class="md:col-span-5 col-span-5 rounded-md items-center justify-center border-0 border-slate-800">
-            <x-project-photo-index />
+            @livewire('project.project-photos-index')
         </div>
     </div>
 </x-app-layout>

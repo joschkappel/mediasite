@@ -13,8 +13,7 @@ class Gallery extends Component
 
     public function mount()
     {
-        $this->photos = Photo::where('active', true)->get();
-
+        $this->photos = Photo::formain()->get();
     }
 
 
