@@ -25,6 +25,11 @@
                     <x-jet-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
                         {{ __('Gallery') }}
                     </x-jet-nav-link>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link :href="route('gallery-wireframe1')" :active="request()->routeIs('gallery')">
+                            {{ __('Gallery Wireframe 1') }}
+                        </x-jet-nav-link>
+                    </div>
                 </div>
             </div>
 

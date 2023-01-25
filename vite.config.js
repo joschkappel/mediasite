@@ -2,6 +2,11 @@ import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
 
 export default defineConfig({
+    server: {
+        hmr: {
+            host: 'mediasite.test'
+        },
+    },
     plugins: [
         laravel({
             input: [
