@@ -4,18 +4,24 @@ namespace App\Http\Livewire\Photo;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
-use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
+
 use Rappasoft\LaravelLivewireTables\Views\Columns\ImageColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
-use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
+
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Photo;
-use Livewire\Component;
+use App\Models\Project;
+use App\Enums\ProjectType;
+use Illuminate\Database\Eloquent\Builder;
+
+use Illuminate\Support\Facades\Log;
+
 
 class PhotoIndex extends DataTableComponent
 {
     protected $model = Photo::class;
-    public $myParam = 'Default';
 
     public $columnSearch = [
         'name' => null,
@@ -25,48 +31,49 @@ class PhotoIndex extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id')
-             ->setHideBulkActionsWhenEmptyEnabled()
-            ;
-            // ->setDebugEnabled();
+            ->setAdditionalSelects(['photos.id as id', 'photos.name as name'])
+            ->setFilterLayoutSlideDown()
+            ->setHideBulkActionsWhenEmptyEnabled();
+        // ->setDebugEnabled();
     }
 
     public function columns(): array
     {
         return [
-            Column::make("ID", "id")
+            LinkColumn::make("Name")
+                ->title(fn ($row) => $row->name)
+                ->location(fn ($row) => route('photo.edit', ['photo' => $row]))
+                ->attributes(function ($row) {
+                    return [
+                        'class' => 'underline text-blue-500 hover:no-underline',
+                    ];
+                })
+                ->sortable()
+                ->searchable(),
+            Column::make("Project", 'project.name')
+                ->sortable()
+                ->searchable(),
+            Column::make("Project-type", 'project.type')
+                ->format(
+                    fn ($value, $row, Column $column) => ProjectType::from($value)->description()
+                )
+                ->sortable()
+                ->searchable(),
+            BooleanColumn::make("On Main", 'show_on_main')
                 ->sortable(),
-            Column::make("Name")
-                ->sortable()
-                ->searchable(),
-            Column::make("Tags")
-                ->sortable()
-                ->searchable(),
             BooleanColumn::make("Active")
                 ->sortable(),
             Column::make("Created at", "created_at")
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->format(
+                    fn ($value, $row, Column $column) => $value->isoFormat('l')
+                ),
             ImageColumn::make("Thumbnail")
                 ->location(
-                    fn($row) => $row->thumbnail
+                    fn ($row) => $row->thumbnail
                 ),
-            ButtonGroupColumn::make('Actions')
-                ->attributes(function($row) {
-                    return [
-                        'class' => 'space-x-2',
-                    ];
-                })
-                ->buttons([
-                    LinkColumn::make('Edit')
-                        ->title(fn($row) => 'Edit Metadata for "' . $row->name . '"')
-                        ->location(fn($row) => route('photo.edit', ['photo'=>$row->id]))
-                        ->attributes(function($row) {
-                            return [
-                                'class' => 'underline text-blue-500 hover:no-underline',
-                            ];
-                        }),
-                ]),
-            ];
+        ];
     }
 
     public function bulkActions(): array
@@ -74,6 +81,8 @@ class PhotoIndex extends DataTableComponent
         return [
             'activate' => 'Activate',
             'deactivate' => 'Deactivate',
+            'showOnMain' => 'Show on Main',
+            'removeFromMain' => 'Remove from Main',
             'delete' => 'Delete',
         ];
     }
@@ -91,17 +100,81 @@ class PhotoIndex extends DataTableComponent
 
         $this->clearSelected();
     }
+    public function showOnMain()
+    {
+        Photo::whereIn('id', $this->getSelected())->update(['show_on_main' => true]);
+
+        $this->clearSelected();
+    }
+    public function removeFromMain()
+    {
+        Photo::whereIn('id', $this->getSelected())->update(['show_on_main' => false]);
+
+        $this->clearSelected();
+    }
 
     public function delete()
     {
         $photos = Photo::whereIn('id', $this->getSelected())->get();
 
-        foreach ($photos as $photo){
+        foreach ($photos as $photo) {
             $photo->clearMediaCollection();
             $photo->delete();
         }
 
         $this->clearSelected();
+    }
 
+    public function filters(): array
+    {
+        return [
+            SelectFilter::make('Active')
+                ->options([
+                    '' => 'All',
+                    '1' => 'Yes',
+                    '0' => 'No',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === '1') {
+                        $builder->where('photos.active', true);
+                    } elseif ($value === '0') {
+                        $builder->where('photos.active', false);
+                    }
+                }),
+            SelectFilter::make('Show on Main')
+                ->options([
+                    '' => 'All',
+                    '1' => 'Yes',
+                    '0' => 'No',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value === '1') {
+                        $builder->where('show_on_main', true);
+                    } elseif ($value === '0') {
+                        $builder->where('show_on_main', false);
+                    }
+                }),
+            MultiSelectFilter::make('Projects')
+                ->options(
+                    Project::query()
+                        ->orderBy('name')
+                        ->get()
+                        ->keyBy('id')
+                        ->map(fn ($project) => $project->name)
+                        ->toArray()
+                )
+                ->filter(function (Builder $builder, array $values) {
+                    if (count($values) > 0) {
+                        $builder->whereIn('project_id', $values);
+                    }
+                }),
+            SelectFilter::make('Project Type')
+                ->options(ProjectType::getFilterOptions())
+                ->filter(function (Builder $builder, string $value) {
+                    if ($value >= '0') {
+                        $builder->where('projects.type', $value);
+                    }
+                }),
+        ];
     }
 }

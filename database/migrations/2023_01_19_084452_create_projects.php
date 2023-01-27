@@ -13,15 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
-            $table->string('tags');
+            // start ENUM ProjectType
+            $table->integer('type');
+            // end ENUM
             $table->boolean('active')->default(true);
-            $table->text('description');
+            $table->string('info_time'); // eg 'run during 2022' or 'from 2021 to 2022'
+            $table->text('info_de')->nullable();
+            $table->text('info_en')->nullable();
+            $table->tinyInteger('menu_position');
             $table->string('watermark')->nullable();
-            $table->string('watermark_color')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photos');
+        Schema::dropIfExists('projects');
     }
 };

@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-blue-800 leading-tight">
-            {{ __('Add Foto') }}
+            {{ __('Add Photo') }}
         </h2>
     </x-slot>
 
@@ -16,12 +16,10 @@
                     {{ __('Select a picture file') }}
                 </x-slot>
                 <x-slot name="form">
-                    <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
+                    <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
                         <!-- Profile Photo File Input -->
-                        <input type="file" class="hidden"
-                                    wire:model="photo" id="photo"
-                                    x-ref="photo"
-                                    x-on:change="
+                        <input type="file" class="hidden" wire:model="photo" id="photo" x-ref="photo"
+                            x-on:change="
                                             photoName = $refs.photo.files[0].name;
                                             const reader = new FileReader();
                                             reader.onload = (e) => {
@@ -34,14 +32,15 @@
 
                         <!-- Photo Preview -->
                         @if ($photo)
-                        <div class="mt-2" x-show="photoPreview" style="display: none;">
-                            <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center"
-                                x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
-                            </span>
-                        </div>
+                            <div class="mt-2" x-show="photoPreview" style="display: none;">
+                                <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center"
+                                    x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                                </span>
+                            </div>
                         @endif
 
-                        <x-jet-secondary-button class="mt-2 mr-2" type="button" x-on:click.prevent="$refs.photo.click()">
+                        <x-jet-secondary-button class="mt-2 mr-2" type="button"
+                            x-on:click.prevent="$refs.photo.click()">
                             {{ __('Select A New Photo') }}
                         </x-jet-secondary-button>
 
@@ -69,25 +68,30 @@
                     <!-- Name -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="name" value="{{ __('Title') }}" />
-                        <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="name" autocomplete="name" />
+                        <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="name"
+                            autocomplete="name" />
                         <x-jet-input-error for="name" class="mt-2" />
                     </div>
                     <!-- Description -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="description" value="{{ __('Description') }}" />
-                        <x-jet-input id="description" type="text" class="mt-1 block w-full" wire:model.defer="description" autocomplete="description" />
+                        <x-jet-input id="description" type="text" class="mt-1 block w-full"
+                            wire:model.defer="description" autocomplete="description" />
                         <x-jet-input-error for="description" class="mt-2" />
                     </div>
                     <!-- Watermark -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="watermark" value="{{ __('Watermark') }}" />
-                        <x-jet-input id="watermark" type="text" class="mt-1 block w-full" wire:model.defer="watermark" autocomplete="watermark" />
+                        <x-jet-input id="watermark" type="text" class="mt-1 block w-full"
+                            wire:model.defer="watermark" autocomplete="watermark" />
                         <x-jet-input-error for="watermark" class="mt-2" />
                     </div>
                     <!-- Watermark Color-->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="watermark_color" value="{{ __('Text Color') }}" />
-                        <select id="watermark_color"  class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" name="watermark_color" wire:model.defer="watermark_color">
+                        <select id="watermark_color"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            name="watermark_color" wire:model.defer="watermark_color">
 
                             <option selected value="l">Lime</option>
                             <option value="b">Black</option>

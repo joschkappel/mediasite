@@ -2,17 +2,21 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    mode: 'jit',
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        // './node_modules/flowbite/**/*.js'
         './src/**/*.{html,js}',
         './node_modules/tw-elements/dist/js/**/*.js'
     ],
 
     theme: {
+        screens: {
+            xs: "574px",
+            ...defaultTheme.screens,
+        },
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
@@ -23,7 +27,6 @@ module.exports = {
     plugins: [
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
-        // require('flowbite/plugin')
         require('tw-elements/dist/plugin'),
     ],
 };

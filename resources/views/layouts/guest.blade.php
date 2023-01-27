@@ -13,15 +13,22 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Styles -->
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+    @livewireStyles
 </head>
 
 <body>
-    <div class="font-sans text-gray-900 antialiased">
+    <div class="font-sans
+     text-gray-900 antialiased">
         {{ $slot }}
     </div>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.js"></script> --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.js"></script> --}}
-    {{-- <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script> --}}
+    @livewireScripts
 </body>
 
 </html>

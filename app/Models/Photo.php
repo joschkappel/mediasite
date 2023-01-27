@@ -20,17 +20,15 @@ class Photo extends Model implements HasMedia
     {
 
         $this->addMediaConversion('thumb')
-              ->width(100)
-              ->height(75)
-              ->sharpen(10)
-              ->nonQueued();
+            ->width(100)
+            ->height(75)
+            ->sharpen(10)
+            ->nonQueued();
 
         $this->addMediaConversion('preview')
             ->width(400)
             ->height(300)
             ->nonQueued();
-
-
     }
 
     protected $fillable = [
@@ -38,6 +36,7 @@ class Photo extends Model implements HasMedia
         'description',
         'tags',
         'active',
+        'show_on_main',
         'watermark',
         'watermark_color',
     ];
@@ -45,8 +44,23 @@ class Photo extends Model implements HasMedia
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'show_on_main' => 'boolean'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+    public function scopeForMain($query)
+    {
+        return $query->where('active', true)->where('show_on_main', true);
+    }
 
     /**
      * Get the thumbanil of the first media object
@@ -55,7 +69,7 @@ class Photo extends Model implements HasMedia
      */
     protected function thumbnail(): Attribute
     {
-        if ($this->hasMedia()){
+        if ($this->hasMedia()) {
             return Attribute::make(
                 get: fn () => $this->getFirstMedia()->getUrl('thumb')
             )->shouldCache();
