@@ -16,7 +16,7 @@
         <div class="py-2 bg-white shadow">
             <div class="max-w-7xl mx-auto">
                 <div class="p-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    @livewire('project.project-index')
+                    @livewire('project.project-datatable')
                 </div>
             </div>
         </div>

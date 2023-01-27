@@ -28,10 +28,9 @@ class PhotoMediaSeeder extends Seeder
             ->create();
 
         // create image file
+        // and attach media
         $dir = public_path('media');
 
-
-        // attach media
         foreach ($photos as $p) {
             $image = FakerPicsumImagesProvider::image($dir, 600, 400);
             $p->addMedia($image)

@@ -16,6 +16,7 @@ class ProjectEdit extends Component
     public $watermark;
     public $menu_position;
     public $positions;
+    public $active;
     public $set_positions;
     public Project $project;
 
@@ -28,6 +29,7 @@ class ProjectEdit extends Component
         $this->info_de = $project->info_de;
         $this->info_en = $project->info_en;
         $this->watermark = $project->watermark;
+        $this->active = $project->active;
 
         $this->positions = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
         $this->set_positions = Project::where('type', $this->type)->whereNot('id', $project->id)->pluck('menu_position');
@@ -52,6 +54,7 @@ class ProjectEdit extends Component
             'info_de' => 'required_without:info_en|max:400',
             'info_en' => 'required_without:info_de|max:400',
             'watermark' => 'nullable|sometimes|string|max:20',
+            'active' => 'required|boolean'
         ]);
         Log::info($validData);
         $this->project->update($validData);

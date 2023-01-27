@@ -5,12 +5,12 @@
         </h2>
     </x-slot>
 
-    <div class="container p-4 flex m-auto grid grid-cols-5 md:grid-cols-8 gap-2 justify-center">
+    <div class="container p-4 m-auto grid grid-cols-5 md:grid-cols-8 gap-2 justify-center">
         <div class="md:col-span-3 col-span-5 rounded-md items-center justify-center border-0 border-slate-800">
-            <x-project-index />
+            @livewire('project.project-index')
         </div>
         <div class="md:col-span-5 col-span-5 rounded-md items-center justify-center border-0 border-slate-800">
-            @livewire('project.project-photos-index')
+            @livewire('project.photo-index')
         </div>
     </div>
 </x-app-layout>

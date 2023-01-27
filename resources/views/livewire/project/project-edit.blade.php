@@ -38,6 +38,11 @@
                         </select>
                         <x-jet-input-error for="type" class="mt-2" />
                     </div>
+                    <!-- Active -->
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-checkbox id="show_on_main" name="active" wire:model.defer="active" :value="$active" />
+                        <span class="ml-2 text-sm text-gray-600">{{ __('Active') }}</span>
+                    </div>
                     <!-- Info Time -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="info_time" value="{{ __('Project Period') }}" />
@@ -55,7 +60,7 @@
                                 @foreach ($positions as $pos)
                                     @if ($set_positions->contains($pos))
                                         <li class="page-item disabled"><button type="button"
-                                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-red-500 pointer-events-none focus:shadow-none">{{ $pos }}
+                                                class="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-red-500 pointer-events-none focus:shadow-none">{{ $pos }}
                                             </button>
                                         </li>
                                     @else

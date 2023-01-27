@@ -63,8 +63,14 @@ class MediaCreate extends Command
             $this->info($photos->count() . ' photos created');
 
             // attach media
+            $alternate = true;
             foreach ($photos as $p) {
-                $image = FakerPicsumImagesProvider::image($dir, 600, 400);
+                if ($alternate) {
+                    $image = FakerPicsumImagesProvider::image($dir, 1280, 960);
+                } else {
+                    $image = FakerPicsumImagesProvider::image($dir, 960, 1280);
+                }
+                $alternate = !$alternate;
                 $p->addMedia($image)
                     ->usingName($p->name)
                     ->withResponsiveImages()

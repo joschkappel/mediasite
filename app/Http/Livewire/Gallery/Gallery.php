@@ -9,13 +9,6 @@ use Livewire\Component;
 class Gallery extends Component
 {
 
-    public Collection $photos;
-
-    public function mount()
-    {
-        $this->photos = Photo::formain()->get();
-    }
-
 
     public function render()
     {
