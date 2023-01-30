@@ -40,8 +40,9 @@
                     </div>
                     <!-- Active -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-checkbox id="show_on_main" name="active" wire:model.defer="active" :value="$active" />
-                        <span class="ml-2 text-sm text-gray-600">{{ __('Active') }}</span>
+                        <x-jet-checkbox class="h-6 w-6" id="show_on_main" name="active" wire:model.defer="active"
+                            :value="$active" />
+                        <span class="ml-2 item-center text-md text-gray-600">{{ __('Active') }}</span>
                     </div>
                     <!-- Info Time -->
                     <div class="col-span-6 sm:col-span-4">

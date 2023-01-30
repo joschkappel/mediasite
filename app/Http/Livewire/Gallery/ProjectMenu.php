@@ -5,12 +5,14 @@ namespace App\Http\Livewire\Gallery;
 use App\Enums\ProjectType;
 use App\Models\Project;
 use Livewire\Component;
+use Illuminate\Support\Collection;
 
 class ProjectMenu extends Component
 {
 
 
-    public $projects;
+    public Collection $projects;
+
 
     public function mount()
     {

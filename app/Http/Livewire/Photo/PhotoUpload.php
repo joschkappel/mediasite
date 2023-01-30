@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Photo;
 
 use Livewire\Component;
 use App\Models\Photo;
+use App\Models\Project;
 use App\Traits\CreateWatermark;
 use Livewire\WithFileUploads;
 
@@ -11,6 +12,8 @@ use Livewire\WithFileUploads;
 class PhotoUpload extends Component
 {
     use WithFileUploads, CreateWatermark;
+
+    public Project $project;
 
     public $photo;
     public $name;
@@ -34,24 +37,26 @@ class PhotoUpload extends Component
     {
         $validData = $this->validate();
 
-       // $filename = $this->photo->store('media');
-        $saved_photo = Photo::create([
-            'name' =>$this->name,
+        // $filename = $this->photo->store('media');
+        $saved_photo = $this->project->photos()->create([
+            'name' => $this->name,
             'tags' => '#protr',
             'description' => $this->description,
             'watermark' => $this->watermark,
             'watermark_color' => $this->watermark_color,
+            'active' => false,
         ]);
+        $saved_photo->project()->associate($this->project);
 
         // add a watermark to the image
-        if ($saved_photo->watermark){
+        if ($saved_photo->watermark) {
             $this->watermark_image($this->photo->path(), $saved_photo);
         }
 
-        $saved_photo->addMedia( $this->photo->path())
-                    ->usingName($this->name)
-                    ->withResponsiveImages()
-                    ->toMediaCollection();
+        $saved_photo->addMedia($this->photo->path())
+            ->usingName($this->name)
+            ->withResponsiveImages()
+            ->toMediaCollection();
 
 
 

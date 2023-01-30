@@ -30,11 +30,11 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('projects-photos');
     })->name('dashboard');
-    Route::get('/stock/photo', function () {
+    Route::get('/photo', function () {
         return view('livewire.photo.photo-index');
     })->name('photo.index');
-    Route::get('/stock/photo/create', PhotoUpload::class)->name('photo.create');
-    Route::get('/stock/photo/{photo}', PhotoEdit::class)->name('photo.edit');
+    Route::get('/project/{project}/photo/create', PhotoUpload::class)->name('photo.create');
+    Route::get('/photo/{photo}', PhotoEdit::class)->name('photo.edit');
     Route::get('/project', function () {
         return view('projects-photos');
     })->name('project.index');

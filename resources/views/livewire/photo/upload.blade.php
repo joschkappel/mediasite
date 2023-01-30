@@ -1,12 +1,13 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-blue-800 leading-tight">
-            {{ __('Add Photo') }}
+            {{ __('Add Photo to Project ') . $project->name }}
         </h2>
     </x-slot>
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+
             <x-jet-form-section submit="">
                 <x-slot name="title">
                     {{ __('Picture Upload') }}
@@ -83,12 +84,13 @@
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="watermark" value="{{ __('Watermark') }}" />
                         <x-jet-input id="watermark" type="text" class="mt-1 block w-full"
-                            wire:model.defer="watermark" autocomplete="watermark" />
+                            wire:model.defer="watermark" autocomplete="watermark"
+                            placeholder="{{ $project->watermark }}" />
                         <x-jet-input-error for="watermark" class="mt-2" />
                     </div>
                     <!-- Watermark Color-->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="watermark_color" value="{{ __('Text Color') }}" />
+                        <x-jet-label for="watermark_color" value="{{ __('Watermark Text Color') }}" />
                         <select id="watermark_color"
                             class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             name="watermark_color" wire:model.defer="watermark_color">
