@@ -10,8 +10,14 @@ use Livewire\Component;
 class ProjectMenu extends Component
 {
     public Collection $projects;
+    public Project $selected_prj;
 
-    protected $listeners = ['getProjects'];
+    protected $listeners = ['getProjects', 'getProject'];
+
+    public function getProject(Project $project)
+    {
+        $this->selected_prj = $project;
+    }
 
     public function getProjects($pt)
     {
