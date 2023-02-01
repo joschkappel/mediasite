@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Livewire\Project;
 
-use App\Http\Livewire\Project\ProjectPhotosIndex;
+use App\Http\Livewire\Project\PhotoIndex;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ProjectPhotosIndexTest extends TestCase
+class PhotoIndexTest extends TestCase
 {
     /** @test */
     public function the_component_can_render()
     {
-        $component = Livewire::test(ProjectPhotosIndex::class);
+        $component = Livewire::test(PhotoIndex::class);
 
         $component->assertStatus(200);
     }
