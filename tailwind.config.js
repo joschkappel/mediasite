@@ -17,11 +17,10 @@ module.exports = {
             xs: "574px",
             ...defaultTheme.screens,
         },
-        extend: {
-            fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            },
+        fontFamily: {
+            diatype: ['diatype-variable','sans'],
         },
+
     },
 
     plugins: [

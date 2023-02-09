@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Gallery\Gallery;
 use App\Http\Livewire\GalleryB\Gallery as Gallery_B;
+use App\Http\Livewire\GalleryC\Gallery as Gallery_C;
 use App\Http\Livewire\Gallery\GalleryWireframe1;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Photo\PhotoUpload;
@@ -23,6 +24,7 @@ use App\Http\Livewire\Project\ProjectEdit;
 Route::get('/', Gallery::class)->name('gallery');
 Route::get('/wireframe1', GalleryWireframe1::class)->name('gallery-wireframe1');
 Route::get('/gallery2', Gallery_B::class)->name('gallery2');
+Route::get('/gallery3', Gallery_C::class)->name('gallery3');
 
 Route::middleware([
     'auth:sanctum',

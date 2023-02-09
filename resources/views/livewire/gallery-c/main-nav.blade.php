@@ -1,33 +1,32 @@
 <div>
     <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class=" mx-auto px-2 ">
-            <div class="flex justify-between h-4">
-                <div class="flex">
-                    <!-- Logo -->
-                    <div class="shrink-0 flex items-center w-3/4">
-                        <a href="{{ route('gallery') }}">
-                            Lioba Kappel
-                        </a>
-                    </div>
-
+        <div class=" mx-auto">
+            <div class="flex justify-between">
+                <div class="block">
                     <!-- Navigation Links -->
                     @foreach ($project_types as $pt)
-                        <div class="hidden space-x-2 sm:-my-px sm:ml-10 sm:flex">
+                        <div class="pb-2">
                             <x-jet-nav-link href="#!" wire:click="$emit('getProjects',{{ $pt }})"
                                 :active="isset($selected_type) ? $selected_type->value == $pt->value : false">
-                                {{ Str::lower($pt->description()) }}
+                                {{ $pt->description() }}
                             </x-jet-nav-link>
                         </div>
                     @endforeach
-
-                    <div class="hidden space-x-2 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="#!">
-                            {{ __('info') }}
-                        </x-jet-nav-link>
-                    </div>
                 </div>
 
+                <div class="block ml-2">
+                    @foreach ($projects as $p)
+                        <div class="pb-2 space-y-1">
+
+                            <x-jet-nav-link href="#!" wire:click="$emit('getProject',{{ $p }})"
+                                :active="isset($selected_prj) ? $selected_prj->id == $p->id : false">
+                                {{ $p->name }}
+                            </x-jet-nav-link>
+
+                        </div>
+                    @endforeach
+                </div>
 
                 <!-- Hamburger -->
                 <div class="-mr-2 flex items-center sm:hidden">
@@ -52,15 +51,10 @@
                 <div class="pb-2 space-y-1">
                     <x-jet-responsive-nav-link href="#!" wire:click="$emit('getProjects',{{ $pt }})"
                         :active="isset($selected_type) ? $selected_type->value == $pt->value : false">
-                        {{ Str::lower($pt->description()) }}
+                        {{ $pt->description() }}
                     </x-jet-responsive-nav-link>
                 </div>
             @endforeach
-            <div class="pb-2 space-y-1">
-                <x-jet-responsive-nav-link href="#!">
-                    {{ __('info') }}
-                </x-jet-responsive-nav-link>
-            </div>
         </div>
 
 
