@@ -12,9 +12,13 @@ class ProjectMedia extends Component
     public Project $project;
     public Collection $photos;
 
-    protected $listeners = ['setNewProject' => 'refreshProject'];
+    protected $listeners = ['getProject', 'clearProject'];
 
-    public function refreshProject(Project $new_project)
+    public function clearProject()
+    {
+        $this->project = new Project();
+    }
+    public function getProject(Project $new_project)
     {
         if ($new_project->id != null) {
             $this->project = $new_project;

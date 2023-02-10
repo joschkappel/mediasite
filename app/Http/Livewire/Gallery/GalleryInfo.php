@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Gallery;
 
 use Livewire\Component;
 
-class GalleryFooter extends Component
+class GalleryInfo extends Component
 {
     public function render()
     {
-        return view('livewire.gallery.gallery-footer');
+        return view('livewire.gallery.gallery-info')->layout('layouts.guest');
     }
 }

@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Livewire\Gallery\Gallery;
-use App\Http\Livewire\GalleryB\Gallery as Gallery_B;
-use App\Http\Livewire\GalleryC\Gallery as Gallery_C;
-use App\Http\Livewire\Gallery\GalleryWireframe1;
+use App\Http\Livewire\Gallery\GalleryInfo;
+use App\Http\Livewire\Gallery\ProjectMenu;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Photo\PhotoUpload;
 use App\Http\Livewire\Photo\PhotoEdit;
@@ -21,10 +19,11 @@ use App\Http\Livewire\Project\ProjectEdit;
 |
 */
 
-Route::get('/', Gallery::class)->name('gallery');
-Route::get('/wireframe1', GalleryWireframe1::class)->name('gallery-wireframe1');
-Route::get('/gallery2', Gallery_B::class)->name('gallery2');
-Route::get('/gallery3', Gallery_C::class)->name('gallery3');
+Route::get('/', ProjectMenu::class)->name('gallery');
+Route::get('/gallery/info', GalleryInfo::class)->name('gallery.info');
+Route::get('/gallery/projecttype/{project_type}', ProjectMenu::class)->name('gallery.projecttype');
+// Route::get('/gallery/project/{project}', Gallery::class)->name('gallery.project');
+
 
 Route::middleware([
     'auth:sanctum',

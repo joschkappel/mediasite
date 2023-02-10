@@ -4,26 +4,35 @@ namespace App\Http\Livewire\Gallery;
 
 use App\Enums\ProjectType;
 use App\Models\Project;
-use Livewire\Component;
+
 use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class ProjectMenu extends Component
 {
-
-
     public Collection $projects;
+    public Project $selected_prj;
+    public $project_type;
 
+    protected $listeners = ['getProject'];
 
-    public function mount()
+    public function getProject(Project $project)
     {
-        $this->projects = collect();
-        foreach (ProjectType::cases() as $p) {
-            $this->projects->put($p->description(), Project::where('type', $p)->active()->get());
-        }
+        $this->selected_prj = $project;
     }
 
+
+
+    public function mount($project_type = null)
+    {
+        if ($project_type == null) {
+            $project_type = ProjectType::PHOTOS->value;
+        }
+        $this->project_type = $project_type;
+        $this->projects = Project::whereType($project_type)->get();
+    }
     public function render()
     {
-        return view('livewire.gallery.project-menu');
+        return view('livewire.gallery.project-menu')->layout('layouts.guest');
     }
 }

@@ -3,10 +3,8 @@
 @tailwind utilities;
 @font-face {
     font-family: "diatype-variable";
-    src: url('../../public/fonts/ABCDiatypeEdu-Regular.woff') format("woff-variations"),
-    url('../../public/fonts/ABCDiatypeEdu-Bold.woff') format("woff-variations"),
-    url('../../public/fonts/ABCDiatypeEdu-Black.woff2') format("woff2-variations"),
-    url('../../public/fonts/ABCDiatypeEdu-Bold.woff2') format("woff2-variations");
+    src: url('../../public/fonts/ABCDiatypeVariableEdu.woff') format("woff-variations"),
+    url('../../public/fonts/ABCDiatypeVariableEdu.woff2') format("woff2-variations");
 }
 
 

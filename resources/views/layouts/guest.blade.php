@@ -26,7 +26,18 @@
 <body>
     <div class="font-diatype
      text-gray-900 antialiased">
-        {{ $slot }}
+        <div id="app" class="flex flex-row h-screen w-screen p-4 gap-4">
+            <div id="main" class="grid xs:grid-cols-1 md:grid-rows-12  flex-grow gap-4 h-8">
+                <div id="mainnav" class="p-2 ">
+                    @livewire('gallery.main-nav')
+                </div>
+                {{ $slot }}
+
+                <div id="footer" class="row-start-12 text-center h-8">footer</div>
+            </div>
+
+        </div>
+
     </div>
     @livewireScripts
 </body>
