@@ -7,8 +7,8 @@
             <div
                 class="w-96 h-full  mx-4 my-2 flex flex-col justify-center items-center font-semibold whitespace-no-wrap">
                 <div class="relative block ">
-                    <img class="p-2" src="{{ $p->photos()->first()->getFirstMedia()->getUrl() }}"
-                        srcset="{{ $p->photos()->first()->getFirstMedia()->getSrcset() }}" alt="" />
+                    <img class="p-2" src="{{ $p->topPhoto()->getFirstMedia()->getUrl() }}"
+                        srcset="{{ $p->topPhoto()->getFirstMedia()->getSrcset() }}" alt="{{ $p->topPhoto()->name }}" />
 
 
                     <div class="p-2">

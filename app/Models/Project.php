@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProjectType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,8 @@ class Project extends Model
         'type' => ProjectType::class,
     ];
 
+    protected $appends = ['has_active_photos'];
+
     public function photos()
     {
         return $this->hasMany(Photo::class);
@@ -36,8 +39,18 @@ class Project extends Model
     {
         return $query->where('active', true);
     }
-    public function mainPhoto()
+    public function hasActivePhotos(): Attribute
     {
-        return $this->photos()->where('active', true);
+        return Attribute::make(
+            get: fn () => $this->photos->where('active', true)->count() > 0
+        )->shouldCache();
+    }
+    public function topPhoto()
+    {
+        $photo = $this->photos->where('active', true)->where('show_on_main', true)->first();
+        if ($photo == null) {
+            $photo = $this->photos->where('active', true)->first();
+        };
+        return $photo;
     }
 }

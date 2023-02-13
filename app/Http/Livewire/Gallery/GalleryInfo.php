@@ -8,6 +8,6 @@ class GalleryInfo extends Component
 {
     public function render()
     {
-        return view('livewire.gallery.gallery-info')->layout('layouts.guest');
+        return view('livewire.gallery.gallery-info')->layout('layouts.public');
     }
 }

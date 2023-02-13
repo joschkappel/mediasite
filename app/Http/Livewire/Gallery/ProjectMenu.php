@@ -29,10 +29,10 @@ class ProjectMenu extends Component
             $project_type = ProjectType::PHOTOS->value;
         }
         $this->project_type = $project_type;
-        $this->projects = Project::whereType($project_type)->get();
+        $this->projects = Project::whereType($project_type)->with('photos')->orderBy('menu_position')->get()->where('has_active_photos', true);
     }
     public function render()
     {
-        return view('livewire.gallery.project-menu')->layout('layouts.guest');
+        return view('livewire.gallery.project-menu')->layout('layouts.public');
     }
 }
