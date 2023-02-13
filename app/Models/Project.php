@@ -36,4 +36,8 @@ class Project extends Model
     {
         return $query->where('active', true);
     }
+    public function mainPhoto()
+    {
+        return $this->photos()->where('active', true);
+    }
 }

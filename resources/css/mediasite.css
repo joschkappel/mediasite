@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "diatype-variable";
+    src: url('../../public/fonts/ABCDiatypeVariableEdu.woff') format("woff-variations"),
+    url('../../public/fonts/ABCDiatypeVariableEdu.woff2') format("woff2-variations");
+}
+/* @media (min-width: 576px) {
+    .img-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .img-container::-webkit-scrollbar {
+        display: none;
+    }
+}
+@media (max-width: 576px) {
+    .img-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+} */
+

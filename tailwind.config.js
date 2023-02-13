@@ -20,6 +20,9 @@ module.exports = {
         fontFamily: {
             diatype: ['diatype-variable','sans'],
         },
+        extend: {
+            scrollbar: ['rounded']
+        },
 
     },
 
@@ -27,5 +30,6 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('tw-elements/dist/plugin'),
+        require('tailwind-scrollbar'),
     ],
 };

@@ -12,24 +12,10 @@ class ProjectMedia extends Component
     public Project $project;
     public Collection $photos;
 
-    protected $listeners = ['getProject', 'clearProject'];
 
-    public function clearProject()
+    public function mount(Project $project)
     {
-        $this->project = new Project();
-    }
-    public function getProject(Project $new_project)
-    {
-        if ($new_project->id != null) {
-            $this->project = $new_project;
-        } else {
-            $this->project = new Project();
-        }
-    }
-
-    public function mount()
-    {
-        $this->project = new Project();
+        $this->project = $project;
     }
 
     public function render()
@@ -39,6 +25,6 @@ class ProjectMedia extends Component
         } else {
             $this->photos = $this->project->photos()->active()->get();
         }
-        return view('livewire.gallery.project-media');
+        return view('livewire.gallery.project-media')->layout('layouts.guest');
     }
 }

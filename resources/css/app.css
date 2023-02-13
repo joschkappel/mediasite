@@ -1,10 +1,8 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-    font-family: "diatype-variable";
-    src: url('../../public/fonts/ABCDiatypeVariableEdu.woff') format("woff-variations"),
-    url('../../public/fonts/ABCDiatypeVariableEdu.woff2') format("woff2-variations");
-}
+
+
 
 

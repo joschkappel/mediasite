@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Gallery;
 
 use Livewire\Component;
 
-class GalleryMenu extends Component
+class Footer extends Component
 {
     public function render()
     {
-        return view('livewire.gallery.gallery-menu');
+        return view('livewire.gallery.footer');
     }
 }

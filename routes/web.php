@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Gallery\GalleryInfo;
+use App\Http\Livewire\Gallery\ProjectMedia;
 use App\Http\Livewire\Gallery\ProjectMenu;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Photo\PhotoUpload;
@@ -22,7 +23,7 @@ use App\Http\Livewire\Project\ProjectEdit;
 Route::get('/', ProjectMenu::class)->name('gallery');
 Route::get('/gallery/info', GalleryInfo::class)->name('gallery.info');
 Route::get('/gallery/projecttype/{project_type}', ProjectMenu::class)->name('gallery.projecttype');
-// Route::get('/gallery/project/{project}', Gallery::class)->name('gallery.project');
+Route::get('/gallery/project/{project}', ProjectMedia::class)->name('gallery.project');
 
 
 Route::middleware([

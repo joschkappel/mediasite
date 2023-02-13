@@ -12,7 +12,7 @@
     {{-- <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap"> --}}
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/mediasite.css'])
 
     <!-- Styles -->
     <style>
@@ -20,23 +20,23 @@
             display: none !important;
         }
     </style>
+
     @livewireStyles
 </head>
 
 <body>
-    <div class="font-diatype
-     text-gray-900 antialiased">
-        <div id="app" class="flex flex-row h-screen w-screen p-4 gap-4">
-            <div id="main" class="grid xs:grid-cols-1 md:grid-rows-12  flex-grow gap-4 h-8">
-                <div id="mainnav" class="p-2 ">
-                    @livewire('gallery.main-nav')
-                </div>
-                {{ $slot }}
+    <div class="font-diatype text-gray-900 antialiased flex flex-col bg-white ">
+        <header class="top-0 z-10 left-0 w-full  px-4 py-3 ">
+            @livewire('gallery.main-nav')
+        </header>
 
-                <div id="footer" class="row-start-12 text-center h-8">footer</div>
-            </div>
+        <section class="flex-1 flex overflow-x-scroll py-12">
+            {{ $slot }}
+        </section>
 
-        </div>
+        <footer class="w-full z-10 h-auto px-4">
+            @livewire('gallery.footer')
+        </footer>
 
     </div>
     @livewireScripts

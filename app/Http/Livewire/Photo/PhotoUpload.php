@@ -49,7 +49,7 @@ class PhotoUpload extends Component
         $saved_photo->project()->associate($this->project);
 
         // add a watermark to the image
-        if ($saved_photo->watermark) {
+        if ($saved_photo->watermark and config('mediasite.watermarking', false)) {
             $this->watermark_image($this->photo->path(), $saved_photo);
         }
 
