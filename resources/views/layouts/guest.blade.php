@@ -24,21 +24,19 @@
     @livewireStyles
 </head>
 
-<body>
-    <div class="font-diatype text-gray-900 antialiased flex flex-col bg-white ">
-        <header class="top-0 z-10 left-0 w-full  px-4 py-3 ">
-            @livewire('gallery.main-nav')
-        </header>
+<body class="font-diatype text-gray-900 antialiased flex flex-col h-screen bg-white ">
+    <header class="h-8 p-4 mt-2 top-0 left-0 flex ">
+        @livewire('gallery.main-nav')
+    </header>
 
-        <section class="flex-1 flex overflow-x-scroll py-12">
-            {{ $slot }}
-        </section>
+    <section class="flex-1 flex  overflow-x-scroll py-12">
+        {{ $slot }}
+    </section>
 
-        <footer class="w-full z-10 h-auto px-4">
-            @livewire('gallery.footer')
-        </footer>
+    <footer class="h-8 p-4 m-2 bottom-0 flex justify-end items-center">
+        @livewire('gallery.footer')
+    </footer>
 
-    </div>
     @livewireScripts
 </body>
 

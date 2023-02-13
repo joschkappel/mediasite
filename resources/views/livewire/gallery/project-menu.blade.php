@@ -5,15 +5,15 @@
         class="flex sm:flex-nowrap sm:overflow-x-scroll xl:scrollbar-none scrollbar-thin scrollbar-gray-400  flex-col sm:flex-row items-center">
         @foreach ($projects as $p)
             <div
-                class="w-96 h-full mx-4 my-2 flex flex-col justify-center items-center text-2xl font-semibold whitespace-no-wrap">
+                class="w-96 h-full  mx-4 my-2 flex flex-col justify-center items-center font-semibold whitespace-no-wrap">
                 <div class="relative block ">
                     <img class="p-2" src="{{ $p->photos()->first()->getFirstMedia()->getUrl() }}"
                         srcset="{{ $p->photos()->first()->getFirstMedia()->getSrcset() }}" alt="" />
 
 
-                    <div class="p-2 ">
-                        <h5 class="text-gray-900 text-xl font-medium mb-2">{{ $p->name }}</h5>
-                        <p class="text-gray-700 text-md font-strong mb-2">{{ $p->info_time }}</h5>
+                    <div class="p-2">
+                        <p class="text-gray-900 text-xl font-strong mb-2">{{ $p->name }}</p>
+                        <p class="text-gray-700 text-md font-medium mb-2">{{ $p->info_time }}</p>
                         <p class="text-gray-700 text-base mb-4">
                             {{ Str::words($p->info_en, 20, ' ...') }}
                         </p>

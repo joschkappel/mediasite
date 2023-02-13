@@ -1,4 +1,4 @@
-<div class="flex items-center justify-stretch h-12">
+<div class="flex items-center justify-stretch">
     <div class="text-2xl w-8 py-2 w-96 font-bold tracking-wide">Lioba Kappel</div>
 
     <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
