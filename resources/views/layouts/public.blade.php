@@ -25,17 +25,14 @@
 </head>
 
 <body class="font-diatype text-gray-900 antialiased flex flex-col h-screen bg-white ">
-    <header class="h-8 p-4 mt-2 top-0 left-0 flex ">
-        @livewire('gallery.main-nav')
-    </header>
+    @livewire('gallery.main-nav')
 
     <section class="flex-1 flex  overflow-x-scroll py-12">
         {{ $slot }}
     </section>
 
-    <footer class="h-8 p-4 m-2 bottom-0 flex justify-end items-center">
-        @livewire('gallery.footer')
-    </footer>
+
+    @livewire('gallery.footer')
 
     @livewireScripts
 </body>
