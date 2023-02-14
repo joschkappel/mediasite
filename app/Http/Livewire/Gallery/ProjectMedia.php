@@ -13,18 +13,21 @@ class ProjectMedia extends Component
     public Photo $current_photo;
     public int $current_key;
     public Collection $photos;
-    public $clickedat;
 
     public function leftclick()
     {
-        $this->clickedat = 'LEFT';
         $this->current_key = abs(($this->current_key - 1) % $this->photos->count());
         $this->current_photo = $this->photos->get($this->current_key);
     }
     public function rightclick()
     {
-        $this->clickedat = 'RIGHT';
         $this->current_key = ($this->current_key + 1) % $this->photos->count();
+        $this->current_photo = $this->photos->get($this->current_key);
+    }
+
+    public function getphoto($key)
+    {
+        $this->current_key = $key;
         $this->current_photo = $this->photos->get($this->current_key);
     }
 
