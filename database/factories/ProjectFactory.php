@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\ProjectType;
+use App\Enums\GalleryType;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Arr;
 
 /**
@@ -22,6 +22,7 @@ class ProjectFactory extends Factory
         return [
             'name' => fake()->word(),
             'type' => collect(ProjectType::cases())->random(),
+            'gallery_type' => collect(GalleryType::cases())->random(),
             'info_time' => fake()->year('-10 years'),
             'info_de' => fake()->text(350),
             'info_en' => fake()->text(350),

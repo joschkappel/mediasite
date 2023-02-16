@@ -16,7 +16,7 @@
 
             </div>
             <div class="text-semibold text-2xl text-right mt-4">
-                {{ $current_key + 1 . '/' . $photos->count() }}
+                {{ $current_key + 1 . '/' . $max_key + 1 }}
             </div>
         </div>
         <div>
@@ -29,14 +29,6 @@
             </div>
             <div class="text-md text-left mt-24">
                 {{ $project->info_en }}
-            </div>
-            <div class="grid grid-cols-8 gap-2 mt-12">
-                @foreach ($photos as $key => $p)
-                    <img wire:click="getphoto({{ $key }})"
-                        class="w-24 h-24 object-cover drop-shadow-md
-                    @if ($key == $current_key) blur-sm @else blur-none @endif"
-                        src="{{ $p->thumbnail }}" alt="{{ $p->name }}">
-                @endforeach
             </div>
         </div>
     </div>

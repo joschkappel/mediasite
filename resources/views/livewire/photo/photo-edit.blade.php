@@ -59,15 +59,13 @@
                     <!-- Show on Main -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-checkbox id="show_on_main" wire:model.defer="show_on_main" :value="$show_on_main" />
-                        <span class="ml-2 text-sm text-gray-600">{{ __('Show on Main Page') }}</span>
+                        <span class="ml-2 text-md text-gray-600">{{ __('Show on Main Page') }}</span>
                     </div>
-
                     <!-- Active -->
-                    <div class="col-span-6 sm:col-span-4">
+                    <div class="col-span-6 sm:col-span-4 text-md">
                         <x-jet-checkbox id="show_on_main" name="active" wire:model.defer="active" :value="$active" />
-                        <span class="ml-2 text-sm text-gray-600">{{ __('Active') }}</span>
+                        <span class="ml-2  text-gray-600">{{ __('Active') }}</span>
                     </div>
-
                 </x-slot>
                 <x-slot name="actions">
                     <x-jet-action-message class="mr-3" on="saved">

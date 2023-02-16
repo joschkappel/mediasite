@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Project;
 
 use App\Enums\ProjectType;
+use App\Enums\GalleryType;
 use App\Models\Project;
 use Livewire\Component;
 use Illuminate\Validation\Rules\Enum;
@@ -12,6 +13,7 @@ class ProjectEdit extends Component
 {
     public $name;
     public $type;
+    public $gallery_type;
     public $info_time, $info_de, $info_en;
     public $watermark;
     public $menu_position;
@@ -24,6 +26,7 @@ class ProjectEdit extends Component
     {
         $this->project = Project::find($project->id);
         $this->type = $project->type;
+        $this->gallery_type = $project->gallery_type;
         $this->name = $project->name;
         $this->info_time = $project->info_time;
         $this->info_de = $project->info_de;
@@ -49,6 +52,7 @@ class ProjectEdit extends Component
         $validData = $this->validate([
             'name' => 'required|string|max:20',
             'type' => ['required', new Enum(ProjectType::class)],
+            'gallery_type' => ['required', new Enum(GalleryType::class)],
             'menu_position' => 'required|integer|between:1,10',
             'info_time' => 'required|max:40',
             'info_de' => 'required_without:info_en|max:400',

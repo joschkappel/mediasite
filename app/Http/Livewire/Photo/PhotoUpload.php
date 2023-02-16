@@ -40,11 +40,11 @@ class PhotoUpload extends Component
         // $filename = $this->photo->store('media');
         $saved_photo = $this->project->photos()->create([
             'name' => $this->name,
-            'tags' => '#protr',
             'description' => $this->description,
             'watermark' => $this->watermark,
             'watermark_color' => $this->watermark_color,
             'active' => false,
+            'show_on_main' => false,
         ]);
         $saved_photo->project()->associate($this->project);
 

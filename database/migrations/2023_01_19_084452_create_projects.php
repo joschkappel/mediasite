@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\GalleryType;
+use App\Enums\ProjectType;
 
 return new class extends Migration
 {
@@ -17,8 +19,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             // start ENUM ProjectType
-            $table->integer('type');
+            $table->integer('type')->default(ProjectType::PHOTOS->value);
             // end ENUM
+            // start ENUM GalleryType
+            $table->integer('gallery_type')->default(GalleryType::CAROUSEL->value);
+            // end ENUM
+
             $table->boolean('active')->default(true);
             $table->string('info_time'); // eg 'run during 2022' or 'from 2021 to 2022'
             $table->text('info_de')->nullable();

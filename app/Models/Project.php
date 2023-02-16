@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProjectType;
+use App\Enums\GalleryType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,7 @@ class Project extends Model
     protected $fillable = [
         'name',
         'type',
+        'gallery_type',
         'info_de',
         'info_en',
         'info_time',
@@ -27,6 +29,7 @@ class Project extends Model
         'updated_at' => 'datetime',
         'active' => 'boolean',
         'type' => ProjectType::class,
+        'gallery_type' => GalleryType::class
     ];
 
     protected $appends = ['has_active_photos'];

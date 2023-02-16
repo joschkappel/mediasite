@@ -18,8 +18,7 @@ class PhotoFactory extends Factory
     {
         return [
             'name' => fake()->words(2, true),
-            'description' => fake()->text(),
-            'tags' => '#' . fake()->word()
+            'description' => fake()->text()
         ];
     }
 }

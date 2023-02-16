@@ -42,6 +42,7 @@ class MediaCreate extends Command
                 ['active' => true],
                 ['active' => false],
             ))
+            ->sequence(fn ($sequence) => ['menu_position' => $sequence->index])
             ->create();
         $this->info($projects->count() . ' projects created');
         $dir = public_path('media');
@@ -54,10 +55,9 @@ class MediaCreate extends Command
                     ['active' => true],
                     ['active' => false],
                 ))
-                ->state(new Sequence(
-                    ['show_on_main' => true],
-                    ['show_on_main' => false],
-                ))
+                ->sequence(fn ($sequence) => ['show_on_main' => $sequence->index == 0 ? true : false])
+                ->sequence(fn ($sequence) => ['gallery_position' => $sequence->index])
+                ->state(fn () => ['gallery_tag' => collect($prj->gallery_type->tags())->random()])
                 ->for($prj)
                 ->create();
             $this->info($photos->count() . ' photos created');

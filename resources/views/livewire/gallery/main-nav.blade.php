@@ -1,6 +1,6 @@
 <header class="flex-shrink-0 flex items-center justify-between px-4 py-3 ">
     <div class="w-64 ">
-        <p class="text-2xl font-bold tracking-wider">Lioba Kappel</p>
+        <p class="text-3xl md:text-4xl font-extrabold tracking-wider">Lioba Kappel</p>
     </div>
 
     <!-- Navigation Links -->

@@ -38,6 +38,19 @@
                         </select>
                         <x-jet-input-error for="type" class="mt-2" />
                     </div>
+                    <!-- Gallery type r-->
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="gallery_type" value="{{ __('Gallery Template') }}" />
+                        <select id="type"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            wire:model.defer="gallery_type">
+                            @foreach (collect(App\Enums\GalleryType::cases()) as $gtype)
+                                <option value="{{ $gtype->value }}">
+                                    {{ $gtype->description() }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="gallery_type" class="mt-2" />
+                    </div>
                     <!-- Active -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-checkbox class="h-6 w-6" id="show_on_main" name="active" wire:model.defer="active"

@@ -62,6 +62,8 @@ class PhotoDatatable extends DataTableComponent
                 ->sortable(),
             BooleanColumn::make("Show on Main", 'show_on_main')
                 ->sortable(),
+            Column::make("gallery_tag")
+                ->sortable(),
             ImageColumn::make("Thumbnail")
                 ->location(
                     fn ($row) => $row->thumbnail

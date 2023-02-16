@@ -14,7 +14,34 @@ enum GalleryType: int
     {
         return __('gallerytype.' . $this->name . '.description');
     }
-
+    public function template(): string
+    {
+        switch ($this) {
+            case self::CAROUSEL:
+                return ('gallery.media-carousel');
+                break;
+            case self::CAROUSEL_THREE_PICS:
+                return ('gallery.media-carousel-3pic');
+                break;
+            default:
+                return ('gallery.media-carousel');
+                break;
+        }
+    }
+    public function tags(): array
+    {
+        switch ($this) {
+            case self::CAROUSEL:
+                return ['carousel'];
+                break;
+            case self::CAROUSEL_THREE_PICS:
+                return ['pic1', 'pic2', 'pic3', 'carousel'];
+                break;
+            default:
+                return ['carousel'];
+                break;
+        }
+    }
     static public function getFilterOptions(): array
     {
         $options = collect();

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Image\Manipulations;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -34,7 +33,8 @@ class Photo extends Model implements HasMedia
     protected $fillable = [
         'name',
         'description',
-        'tags',
+        'gallery_position',
+        'gallery_tag',
         'active',
         'show_on_main',
         'watermark',

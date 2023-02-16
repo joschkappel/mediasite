@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('tags');
             $table->boolean('active')->default(true);
             $table->boolean('show_on_main')->default(false);
+            $table->tinyInteger('gallery_position');
+            $table->string('gallery_tag')->default('carousel');
             $table->text('description');
             $table->string('watermark')->nullable();
             $table->string('watermark_color')->nullable();

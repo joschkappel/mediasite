@@ -38,6 +38,19 @@
                         </select>
                         <x-jet-input-error for="type" class="mt-2" />
                     </div>
+                    <!-- Gallery type r-->
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="gallery_type" value="{{ __('Gallery Template') }}" />
+                        <select id="gallery_type"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            wire:model.defer="gallery_type">
+                            @foreach (collect(App\Enums\GalleryType::cases()) as $gtype)
+                                <option value="{{ $gtype->value }}">
+                                    {{ $gtype->description() }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="gallery_type" class="mt-2" />
+                    </div>
                     <!-- Info Time -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="info_time" value="{{ __('Project Period') }}" />
@@ -55,7 +68,7 @@
                                 @foreach ($positions as $pos)
                                     @if ($set_positions->contains($pos))
                                         <li class="page-item disabled"><button type="button"
-                                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-red-500 pointer-events-none focus:shadow-none">{{ $pos }}
+                                                class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300  text-red-500 pointer-events-none focus:shadow-none">{{ $pos }}
                                             </button>
                                         </li>
                                     @else
