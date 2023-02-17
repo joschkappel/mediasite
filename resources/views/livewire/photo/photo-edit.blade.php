@@ -7,29 +7,77 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            <x-jet-form-section submit="">
-                <x-slot name="title">
-                    {{ __('Picture') }}
-                </x-slot>
+            @if ($photo->hasMedia())
+                <x-jet-form-section submit="">
+                    <x-slot name="title">
+                        {{ __('Picture') }}
+                    </x-slot>
 
-                <x-slot name="description">
-                    {{ __('Edit Metadata for this picture') }}
-                </x-slot>
-                <x-slot name="form">
-                    <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="photo" value="{{ __('Photo') }}" />
+                    <x-slot name="description">
+                        {{ __('Attached picture file') }}
+                    </x-slot>
+                    <x-slot name="form">
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-jet-label for="photo" value="{{ __('Photo') }}" />
 
-                        <!-- Photo Preview -->
-                        <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center">
-                            @if ($photo->hasMedia())
+                            <!-- Photo Preview -->
+                            <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center">
                                 <img src="{{ $photo->getFirstMedia()->getUrl('preview') }}" />
-                            @else
-                                <div class="bold text-red-800">{{ __('MEDIA MISSING') }}</div>
-                            @endif
-                        </span>
-                    </div>
-                </x-slot>
-            </x-jet-form-section>
+                            </span>
+                        </div>
+                    </x-slot>
+                </x-jet-form-section>
+            @else
+                <x-jet-form-section submit="">
+                    <x-slot name="title">
+                        {{ __('Picture (Upload)') }}
+                    </x-slot>
+
+                    <x-slot name="description">
+                        {{ __('Select a picture file') }}
+                    </x-slot>
+                    <x-slot name="form">
+                        <div class="col-span-6 sm:col-span-4">
+                            <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
+                                <!-- Profile Photo File Input -->
+                                <input type="file" class="hidden" wire:model="photoimg" id="photoimg"
+                                    x-ref="photoimg"
+                                    x-on:change="
+                                                photoName = $refs.photoimg.files[0].name;
+                                                const reader = new FileReader();
+                                                reader.onload = (e) => {
+                                                    photoPreview = e.target.result;
+                                                };
+                                                reader.readAsDataURL($refs.photoimg.files[0]);
+                                        " />
+
+                                <x-jet-label for="photoimg" value="{{ __('Photo') }}" />
+
+                                <!-- Photo Preview -->
+                                @if ($photo)
+                                    <div class="mt-2" x-show="photoPreview" style="display: none;">
+                                        <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center"
+                                            x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                                        </span>
+                                    </div>
+                                @endif
+
+                                <x-jet-secondary-button class="mt-2 mr-2" type="button"
+                                    x-on:click.prevent="$refs.photoimg.click()">
+                                    {{ __('Select A New Photo') }}
+                                </x-jet-secondary-button>
+
+                                @if ($photo)
+                                    <x-jet-secondary-button type="button" class="mt-2" wire:click="deleteMedia">
+                                        {{ __('Remove Photo') }}
+                                    </x-jet-secondary-button>
+                                @endif
+                                <x-jet-validation-errors class="mb-4" />
+                            </div>
+                        </div>
+                    </x-slot>
+                </x-jet-form-section>
+            @endif
             <x-jet-section-border />
             <x-jet-form-section submit="update">
                 <x-slot name="title">
@@ -56,16 +104,42 @@
                             wire:model.defer="description" autocomplete="description" />
                         <x-jet-input-error for="description" class="mt-2" />
                     </div>
-                    <!-- Show on Main -->
+                    <!-- Gallery type -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-checkbox id="show_on_main" wire:model.defer="show_on_main" :value="$show_on_main" />
-                        <span class="ml-2 text-md text-gray-600">{{ __('Show on Main Page') }}</span>
+                        <x-jet-label for="gallery_type" value="{{ __('Gallery Template') }}" />
+                        <select id="type"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            wire:model.defer="gallery_type">
+                            @foreach (collect(App\Enums\GalleryType::cases()) as $gtype)
+                                <option value="{{ $gtype->value }}">
+                                    {{ $gtype->description() }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="gallery_type" class="mt-2" />
+                    </div>
+                    <!-- Gallery tag -->
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="gallery_tag" value="{{ __('Gallery Tag') }}" />
+                        <select id="gallery_tag"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            wire:model.defer="gallery_tag">
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag }}">
+                                    {{ $tag }}</option>
+                            @endforeach
+                        </select>
+                        <x-jet-input-error for="gallery_tag" class="mt-2" />
+                    </div>
+                    <!-- Show on Main -->
+                    <div class="col-span-6 sm:col-span-4 text-md">
+                        <div class="form-check">
+                            <x-form.checkbox bindto="show_on_main" label="{{ __('Show on main') }}"
+                                :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
+                        </div>
                     </div>
                     <!-- Active -->
                     <div class="col-span-6 sm:col-span-4 text-md">
-                        <x-jet-checkbox id="show_on_main" name="active" wire:model.defer="active" :value="$active" />
-                        <span class="ml-2  text-gray-600">{{ __('Active') }}</span>
-                    </div>
+                        <x-form.checkbox bindto="active" label="{{ __('Active') }}" :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
                 </x-slot>
                 <x-slot name="actions">
                     <x-jet-action-message class="mr-3" on="saved">

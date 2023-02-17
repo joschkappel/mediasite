@@ -15,7 +15,7 @@ class MediaCreate extends Command
      *
      * @var string
      */
-    protected $signature = 'media:create {--R|projects=2} {--P|photos=5}';
+    protected $signature = 'media:create {--P|projects=2}';
 
     /**
      * The console command description.
@@ -33,7 +33,6 @@ class MediaCreate extends Command
     {
 
         $num_prj = $this->option('projects');
-        $num_pho = $this->option('photos');
 
         // create N projects
         $projects = Project::factory()
@@ -48,23 +47,14 @@ class MediaCreate extends Command
         $dir = public_path('media');
 
         foreach ($projects as $prj) {
-            // create photo
-            $photos = Photo::factory()
-                ->count($num_pho)
-                ->state(new Sequence(
-                    ['active' => true],
-                    ['active' => false],
-                ))
-                ->sequence(fn ($sequence) => ['show_on_main' => $sequence->index == 0 ? true : false])
-                ->sequence(fn ($sequence) => ['gallery_position' => $sequence->index])
-                ->state(fn () => ['gallery_tag' => collect($prj->gallery_type->tags())->random()])
-                ->for($prj)
-                ->create();
-            $this->info($photos->count() . ' photos created');
-
-            // attach media
             $alternate = true;
-            foreach ($photos as $p) {
+            foreach ($prj->photos as $p) {
+                $p->update([
+                    'name' => fake()->words(2, true),
+                    'description' => fake()->text(),
+                    'active' => true,
+                ]);
+
                 if ($alternate) {
                     $image = FakerPicsumImagesProvider::image($dir, 1280, 960);
                 } else {
@@ -76,7 +66,8 @@ class MediaCreate extends Command
                     ->withResponsiveImages()
                     ->toMediaCollection();
             }
-            $this->info($photos->count() . ' media files created');
+            $prj->photos->random()->update(['show_on_main' => true]);
+            $this->info($prj->photos->count() . ' media files created');
         }
         return Command::SUCCESS;
     }

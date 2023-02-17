@@ -18,12 +18,12 @@ class MainNav extends Component
 
     public function hydrate()
     {
-        $this->project_types = Project::pluck('type')->unique()->sortBy('value');
+        $this->project_types = Project::whereRelation('photos', 'active', true)->pluck('type')->unique()->sortBy('value');
     }
 
     public function mount()
     {
-        $this->project_types = Project::pluck('type')->unique()->sortBy('value');
+        $this->project_types = Project::whereRelation('photos', 'active', true)->pluck('type')->unique()->sortBy('value');
     }
 
     public function render()

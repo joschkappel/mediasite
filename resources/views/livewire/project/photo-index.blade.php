@@ -1,6 +1,6 @@
 <div>
     <header class="container mx-auto bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto p-4">
             <h2 class="font-semibold text-xl text-blue-800 leading-tight flex justify-between">
                 @isset($project->id)
                     {{ __('Photos of Project ') }} {{ '" ' . $project->name . ' "' }}
@@ -16,8 +16,8 @@
         </div>
     </header>
     <main>
-        <div class="py-2 bg-white shadow">
-            <div class="max-w-7xl mx-auto">
+        <div class="bg-white shadow">
+            <div class="mx-auto">
                 <div class="p-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     @livewire('project.photo-datatable')
                 </div>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('active')->default(true);
             $table->boolean('show_on_main')->default(false);
-            $table->tinyInteger('gallery_position');
+            $table->tinyInteger('gallery_position')->default(0);
             $table->string('gallery_tag')->default('carousel');
             $table->text('description');
             $table->string('watermark')->nullable();
