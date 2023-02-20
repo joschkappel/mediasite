@@ -55,13 +55,14 @@ class ProjectMedia extends Component
             $this->max_key = $this->carousel->count() - 1;
             $this->current_photo = $this->carousel->get($this->current_key);
         } else {
-            $this->current_key = null;
+            $this->current_key = 0;
+            $this->max_key = 0;
         }
     }
 
     public function render()
     {
 
-        return view('livewire.' . $this->project->gallery_type->template())->layout('layouts.public');
+        return view('livewire.' . $this->project->gallery_type->template(), ['current_key' => $this->current_key])->layout('layouts.public');
     }
 }

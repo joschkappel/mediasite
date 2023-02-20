@@ -8,6 +8,7 @@ enum GalleryType: int
 {
     case CAROUSEL =  0;
     case CAROUSEL_THREE_PICS = 1;
+    case SWIPER = 2;
 
 
     public function description(): string
@@ -19,6 +20,9 @@ enum GalleryType: int
         switch ($this) {
             case self::CAROUSEL:
                 return ('gallery.media-carousel');
+                break;
+            case self::SWIPER:
+                return ('gallery.media-swiper');
                 break;
             case self::CAROUSEL_THREE_PICS:
                 return ('gallery.media-carousel-3pic');
@@ -32,6 +36,9 @@ enum GalleryType: int
     {
         switch ($this) {
             case self::CAROUSEL:
+                return ['carousel'];
+                break;
+            case self::SWIPER:
                 return ['carousel'];
                 break;
             case self::CAROUSEL_THREE_PICS:

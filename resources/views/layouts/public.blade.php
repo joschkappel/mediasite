@@ -23,7 +23,7 @@
             display: none !important;
         }
     </style>
-
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @livewireStyles
 </head>
 
@@ -36,7 +36,8 @@
 
 
     @livewire('gallery.footer')
-
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    @stack('scripts')
     @livewireScripts
 </body>
 

@@ -19,6 +19,7 @@
         "vite": "^4.1.1"
     },
     "dependencies": {
+        "swiper": "^9.0.5",
         "tw-elements": "^1.0.0-alpha13"
     }
 }
