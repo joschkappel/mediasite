@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Photo;
 use App\Models\Project;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MediaErase extends Command
@@ -36,6 +37,8 @@ class MediaErase extends Command
             // delete all photos and media files
             $photos = Photo::whereNotNull('id')->delete();
             $this->info($photos . ' photos and media files deleted');
+            // deltet media zombie entries in DB
+            DB::table('media')->delete();
 
             // delete all projects
             $projects = Project::whereNotNull('id')->delete();
