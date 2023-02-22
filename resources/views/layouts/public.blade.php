@@ -32,7 +32,7 @@
     @livewireStyles
 </head>
 
-<body class="font-diatype text-gray-900 antialiased flex flex-col h-screen bg-white"> "
+<body class="font-diatype text-gray-900 antialiased flex flex-col h-screen bg-white">
 
     @livewire('gallery.main-nav')
 
