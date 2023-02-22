@@ -24,6 +24,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('watermark')->nullable();
             $table->string('watermark_color')->nullable();
+            $table->smallInteger('width')->default(0);
+            $table->smallInteger('height')->default(0);
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects');
         });

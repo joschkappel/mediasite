@@ -31,56 +31,62 @@
 
     @livewire('gallery.main-nav')
 
-    <section class="flex-1 flex  overflow-x-scroll py-12 overflow-y-auto" id="mainSection" x-data
-        @scroll="showToTopButton()">
+    <section class="flex-1 flex  overflow-x-scroll py-12 overflow-y-auto" id="mainSection"
+        @if (config('mediasite.show_back_to_top')) x-data
+        @scroll="showToTopButton()" @endif>
 
         {{ $slot }}
-        <button id="topButton" x-data @click="section.scrollTo({top: 0, behavior: 'smooth' })"
-            class="fixed  z-10  p-3 bg-gray-100 rounded-full shadow-md bottom-10 right-10 animate-bounce">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18">
-                </path>
-            </svg>
-        </button>
-        <button id="leftButton" x-data @click="section.scrollTo({left: 0, behavior: 'smooth' })"
-            class="fixed  z-10  p-3 bg-gray-100 rounded-full shadow-md bottom-10 right-20 animate-bounce">
-            <x-heroicon-m-arrow-left class="w-8 h-8" />
-        </button>
+        @if (config('mediasite.show_back_to_top'))
+            <button id="topButton" x-data @click="section.scrollTo({top: 0, behavior: 'smooth' })"
+                class="fixed  z-10  p-3 bg-gray-100 rounded-full shadow-md bottom-10 right-10 animate-bounce">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M5 10l7-7m0 0l7 7m-7-7v18">
+                    </path>
+                </svg>
+            </button>
+            <button id="leftButton" x-data @click="section.scrollTo({left: 0, behavior: 'smooth' })"
+                class="fixed  z-10  p-3 bg-gray-100 rounded-full shadow-md bottom-10 right-20 animate-bounce">
+                <x-heroicon-m-arrow-left class="w-8 h-8" />
+            </button>
+        @endif
     </section>
 
 
     @livewire('gallery.footer')
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        const topBtn = document.getElementById("topButton");
-        const leftBtn = document.getElementById("leftButton");
-        const section = document.getElementById("mainSection");
+    @if (config('mediasite.show_back_to_top'))
+        <script>
+            const topBtn = document.getElementById("topButton");
+            const leftBtn = document.getElementById("leftButton");
+            const section = document.getElementById("mainSection");
 
 
-        function showToTopButton() {
-            var currentScrollPosition = section.scrollTop;
-            console.log(currentScrollPosition);
+            function showToTopButton() {
+                var currentScrollPosition = section.scrollTop;
+                console.log(currentScrollPosition);
 
-            if (currentScrollPosition > 200) {
-                console.log('show btn');
-                topBtn.classList.remove("hidden");
-            } else {
-                console.log('hide btn');
-                topBtn.classList.add("hidden");
-            }
-            currentScrollPosition = section.scrollLeft;
-            console.log(currentScrollPosition);
+                if (currentScrollPosition > 200) {
+                    console.log('show btn');
+                    topBtn.classList.remove("hidden");
+                } else {
+                    console.log('hide btn');
+                    topBtn.classList.add("hidden");
+                }
+                currentScrollPosition = section.scrollLeft;
+                console.log(currentScrollPosition);
 
-            if (currentScrollPosition > 500) {
-                console.log('show btn');
-                leftBtn.classList.remove("hidden");
-            } else {
-                console.log('hide btn');
-                leftBtn.classList.add("hidden");
-            }
-        };
-    </script>
+                if (currentScrollPosition > 500) {
+                    console.log('show btn');
+                    leftBtn.classList.remove("hidden");
+                } else {
+                    console.log('hide btn');
+                    leftBtn.classList.add("hidden");
+                }
+            };
+        </script>
+    @endif
 
 
 

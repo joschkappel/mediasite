@@ -18,16 +18,18 @@ class Photo extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
 
-        $this->addMediaConversion('thumb')
-            ->width(100)
-            ->height(75)
-            ->sharpen(10)
-            ->nonQueued();
+        if ($media != null) {
+            $this->addMediaConversion('thumb')
+                ->width(100)
+                ->height(75)
+                ->sharpen(10)
+                ->nonQueued();
 
-        $this->addMediaConversion('preview')
-            ->width(400)
-            ->height(300)
-            ->nonQueued();
+            $this->addMediaConversion('preview')
+                ->width(400)
+                ->height(300)
+                ->nonQueued();
+        }
     }
 
     protected $fillable = [
@@ -39,6 +41,8 @@ class Photo extends Model implements HasMedia
         'show_on_main',
         'watermark',
         'watermark_color',
+        'width',
+        'height'
     ];
 
     protected $casts = [

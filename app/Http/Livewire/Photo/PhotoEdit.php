@@ -13,9 +13,16 @@ class PhotoEdit extends Component
     use WithFileUploads, CreateWatermark;
 
     public Photo $photo;
+    public $name;
+    public $description;
+    public $gallery_tag;
+    public $gallery_type;
+    public $active;
+    public $show_on_main;
+
     public $photoimg;
     public $tags;
-    public $name, $description, $active, $show_on_main, $watermark_color, $gallery_type, $gallery_position, $gallery_tag;
+
 
     public function deleteMedia()
     {
@@ -35,7 +42,7 @@ class PhotoEdit extends Component
             // 'gallery_position' => ['required',  Rule::unique('photos')->where(fn ($query) => $query->where('project_id', $this->photo->project_id))]
         ]);
 
-        $saved_photo = $this->photo->update($validData);
+        $saved_photo = $this->photo->save();
         $this->photo->refresh();
 
         // there MUST be only one shown on main
@@ -56,6 +63,13 @@ class PhotoEdit extends Component
         }
 
         if ($this->photoimg != null) {
+
+            [$width, $height] = $this->getDimensions($this->photoimg->path()); // here we get a width/height
+            $this->photo->update([
+                'width' => $width,
+                'height' => $height,
+            ]);
+
             $this->photo->addMedia($this->photoimg->path())
                 ->usingName($this->name)
                 ->withResponsiveImages()
@@ -77,14 +91,15 @@ class PhotoEdit extends Component
     {
         return redirect()->route('photo.index');
     }
-    public function mount()
+    public function mount(Photo $photo)
     {
-        $this->name = $this->photo->name;
-        $this->description = $this->photo->description;
-        $this->active = $this->photo->active;
-        $this->show_on_main = $this->photo->show_on_main;
-        $this->watermark_color = $this->photo->watermark_color;
-        $this->gallery_tag = $this->photo->gallery_tag;
+        $this->photo = Photo::find($photo->id);
+        $this->name = $photo->name;
+        $this->description = $photo->description;
+        $this->gallery_tag = $photo->gallery_tag;
+        $this->gallery_type = $photo->project->gallery_type->description();
+        $this->active = $photo->active;
+        $this->show_on_main = $photo->show_on_main;
 
         $this->tags = $this->photo->project->gallery_type->tags();
     }

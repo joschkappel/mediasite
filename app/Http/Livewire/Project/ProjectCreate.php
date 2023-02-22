@@ -51,7 +51,7 @@ class ProjectCreate extends Component
             'info_en' => 'required_without:info_de|max:400',
             'watermark' => 'nullable|sometimes|string|max:20',
         ]);
-        Log::info($validData);
+        // Log::info($validData);
         Project::create($validData);
         $this->emit('saved');
     }

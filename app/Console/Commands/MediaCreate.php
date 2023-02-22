@@ -5,11 +5,13 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Project;
 use App\Models\Photo;
+use App\Traits\CreateWatermark;
 use Smknstd\FakerPicsumImages\FakerPicsumImagesProvider;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class MediaCreate extends Command
 {
+    use CreateWatermark;
     /**
      * The name and signature of the console command.
      *
@@ -39,6 +41,8 @@ class MediaCreate extends Command
             ->count($num_prj)
             ->state(new Sequence(
                 ['active' => true],
+                ['active' => true],
+                ['active' => true],
                 ['active' => false],
             ))
             ->sequence(fn ($sequence) => ['menu_position' => $sequence->index])
@@ -49,18 +53,22 @@ class MediaCreate extends Command
         foreach ($projects as $prj) {
             $alternate = true;
             foreach ($prj->photos as $p) {
-                $p->update([
-                    'name' => fake()->words(2, true),
-                    'description' => fake()->text(),
-                    'active' => true,
-                ]);
-
                 if ($alternate) {
                     $image = FakerPicsumImagesProvider::image($dir, 1280, 960);
                 } else {
                     $image = FakerPicsumImagesProvider::image($dir, 960, 1280);
                 }
                 $alternate = !$alternate;
+
+                [$width, $height] = $this->getDimensions($image); // here we get a width/height
+                $p->update([
+                    'name' => fake()->words(2, true),
+                    'description' => fake()->text(),
+                    'active' => true,
+                    'width' => $width,
+                    'height' => $height,
+                ]);
+
                 $p->addMedia($image)
                     ->usingName($p->name)
                     ->withResponsiveImages()

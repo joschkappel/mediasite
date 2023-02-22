@@ -93,8 +93,8 @@
                     <!-- Name -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="name" value="{{ __('Title') }}" />
-                        <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="name"
-                            autocomplete="name" />
+                        <x-jet-input id="name" type="text" class="mt-1 block w-full"
+                            wire:model.defer="name" />
                         <x-jet-input-error for="name" class="mt-2" />
                     </div>
                     <!-- Description -->
@@ -107,15 +107,8 @@
                     <!-- Gallery type -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="gallery_type" value="{{ __('Gallery Template') }}" />
-                        <select id="type"
-                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                            wire:model.defer="gallery_type">
-                            @foreach (collect(App\Enums\GalleryType::cases()) as $gtype)
-                                <option value="{{ $gtype->value }}">
-                                    {{ $gtype->description() }}</option>
-                            @endforeach
-                        </select>
-                        <x-jet-input-error for="gallery_type" class="mt-2" />
+                        <x-jet-input id="gallery_type" type="text" :disabled="true"
+                            class="mt-1 block w-full bg-gray-100" bindTo="gallery_type" />
                     </div>
                     <!-- Gallery tag -->
                     <div class="col-span-6 sm:col-span-4">

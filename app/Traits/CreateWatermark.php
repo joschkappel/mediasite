@@ -10,7 +10,7 @@ use Spatie\Image\Manipulations;
 
 trait CreateWatermark
 {
-    public function create_watermark_file(Photo $photo ): string
+    public function create_watermark_file(Photo $photo): string
     {
         $font = 50;
         $wm_text = $photo->watermark;
@@ -22,22 +22,21 @@ trait CreateWatermark
         $white = imagecolorallocatealpha($im, 255, 255, 255, 127);
         imagefill($im, 0, 0, $white);
 
-        if ($photo->watermark_color == 'l'){
-            $wm_color = imagecolorallocate($im, 204,255, 51); // lime
+        if ($photo->watermark_color == 'l') {
+            $wm_color = imagecolorallocate($im, 204, 255, 51); // lime
         } elseif ($photo->watermark_color == 'w') {
-            $wm_color = imagecolorallocate($im, 255,255, 255); // white
+            $wm_color = imagecolorallocate($im, 255, 255, 255); // white
         } else {
-            $wm_color = imagecolorallocate($im, 0,0, 0); // black
+            $wm_color = imagecolorallocate($im, 0, 0, 0); // black
         }
 
-        imagettftext( $im, $font, 0, 0, $font -3, $wm_color, storage_path("app/fonts/Chalkboard.ttc"), $wm_text);
+        imagettftext($im, $font, 0, 0, $font - 3, $wm_color, storage_path("app/fonts/Chalkboard.ttc"), $wm_text);
 
-        $wm_file = storage_path('app/watermarks/'.$photo->name.'.png');
-        imagepng($im, $wm_file );
+        $wm_file = storage_path('app/watermarks/' . $photo->name . '.png');
+        imagepng($im, $wm_file);
 
 
         return $wm_file;
-
     }
 
     public function watermark_image($photo_file, Photo $photo)
@@ -47,7 +46,7 @@ trait CreateWatermark
 
         // modifying the image by adding a watermark
         Image::load($photo_file)
-            ->watermark( $wm_file )
+            ->watermark($wm_file)
             ->watermarkOpacity(60)
             ->watermarkPosition(Manipulations::POSITION_BOTTOM)
             ->watermarkHeight(50, Manipulations::UNIT_PERCENT)
@@ -56,6 +55,17 @@ trait CreateWatermark
             ->watermarkFit(Manipulations::FIT_MAX)
             ->save();
 
-        File::delete( $wm_file );
+        File::delete($wm_file);
+    }
+
+    private function getDimensions(string $filepath): array
+    {
+        try {
+            $image = Image::load($filepath);
+
+            return [$image->getWidth(), $image->getHeight()];
+        } catch (\Throwable $e) {
+            return [null, null];
+        }
     }
 }

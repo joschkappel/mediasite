@@ -17,7 +17,7 @@ class ProjectObserver
         $tags = collect($project->gallery_type->tags());
         foreach ($tags as $tag) {
             if ($tag == 'carousel') {
-                for ($i = 0; $i < 3; $i++) {
+                for ($i = 0; $i < 5; $i++) {
                     $saved_photo = $project->photos()->create([
                         'gallery_tag' => $tag,
                         'gallery_position' => $i,

@@ -19,6 +19,8 @@
         "vite": "^4.1.1"
     },
     "dependencies": {
+        "photoswipe": "^5.3.5",
+        "photoswipe-dynamic-caption-plugin": "^1.2.7",
         "swiper": "^9.0.5",
         "tw-elements": "^1.0.0-alpha13"
     }

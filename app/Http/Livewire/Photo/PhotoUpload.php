@@ -36,6 +36,7 @@ class PhotoUpload extends Component
     public function save()
     {
         $validData = $this->validate();
+        [$width, $height] = $this->getDimensions($this->photo->path()); // here we get a width/height
 
         // $filename = $this->photo->store('media');
         $saved_photo = $this->project->photos()->create([
