@@ -4,14 +4,13 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Project;
-use App\Models\Photo;
-use App\Traits\CreateWatermark;
-use Smknstd\FakerPicsumImages\FakerPicsumImagesProvider;
+use App\Traits\MediaFaker;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class MediaCreate extends Command
 {
-    use CreateWatermark;
+    use MediaFaker;
     /**
      * The name and signature of the console command.
      *
@@ -48,19 +47,16 @@ class MediaCreate extends Command
             ->sequence(fn ($sequence) => ['menu_position' => $sequence->index])
             ->create();
         $this->info($projects->count() . ' projects created');
-        $dir = public_path('media');
 
         foreach ($projects as $prj) {
             $alternate = true;
             foreach ($prj->photos as $p) {
-                if ($alternate) {
-                    $image = FakerPicsumImagesProvider::image($dir, 1280, 960);
-                } else {
-                    $image = FakerPicsumImagesProvider::image($dir, 960, 1280);
-                }
+                [$image, $width, $height] = $this->attachFakeMedia($p, $alternate);
+                Log::info('fake image created', ['image' => $image]);
+                Log::info('fake image size', ['size' => $width . '*' . $height]);
+
                 $alternate = !$alternate;
 
-                [$width, $height] = $this->getDimensions($image); // here we get a width/height
                 $p->update([
                     'name' => fake()->words(2, true),
                     'description' => fake()->text(),
@@ -68,11 +64,6 @@ class MediaCreate extends Command
                     'width' => $width,
                     'height' => $height,
                 ]);
-
-                $p->addMedia($image)
-                    ->usingName($p->name)
-                    ->withResponsiveImages()
-                    ->toMediaCollection();
             }
             $prj->photos->random()->update(['show_on_main' => true]);
             $this->info($prj->photos->count() . ' media files created');

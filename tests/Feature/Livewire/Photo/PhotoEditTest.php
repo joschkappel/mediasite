@@ -16,8 +16,7 @@ class PhotoEditTest extends TestCase
     public function the_component_can_render()
     {
         $project = Project::factory()->create();
-        $photo = Photo::factory()->make();
-        $project->photos()->create($photo->toArray());
+        $photo = $project->photos()->first();
 
         $component = Livewire::test(PhotoEdit::class, ['photo' => $photo]);
 
