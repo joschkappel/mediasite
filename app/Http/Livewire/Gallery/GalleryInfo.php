@@ -11,7 +11,7 @@ class GalleryInfo extends Component
 
     public function render()
     {
-        $this->incrementPagehits('livewire.gallery.gallery-info', null);
+        $this->incrementPagehits('livewire.gallery.gallery-info');
         return view('livewire.gallery.gallery-info')->layout('layouts.public');
     }
 }

@@ -11,7 +11,7 @@ trait LogVisitor
 {
 
 
-    private function incrementPagehits(string $view, int $project_id)
+    private function incrementPagehits(string $view, int $project_id = null)
     {
 
         $visitor = Visitor::updateOrCreate([
