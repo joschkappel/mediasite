@@ -5,10 +5,13 @@ namespace App\Http\Livewire\Gallery;
 use App\Models\Project;
 use Livewire\Component;
 use App\Models\Photo;
+use App\Traits\LogVisitor;
 use Illuminate\Support\Collection;
 
 class ProjectMedia extends Component
 {
+    use LogVisitor;
+
     public Project $project;
     public Photo $current_photo;
     public int $current_key;
@@ -63,6 +66,7 @@ class ProjectMedia extends Component
     public function render()
     {
 
+        $this->incrementPagehits($this->project->gallery_type->template(), $this->project->id);
         return view('livewire.' . $this->project->gallery_type->template(), ['current_key' => $this->current_key])->layout('layouts.public');
     }
 }
