@@ -27,10 +27,10 @@
                 {{ $photos->where('gallery_tag', 'pic1')->first()->name }}
             </div>
             <div class=" text-md text-left mt-4">
-                {{ $photos->where('gallery_tag', 'pic1')->first()->description }}
+                {!! $photos->where('gallery_tag', 'pic1')->first()->description !!}
             </div>
             <div class="text-md text-left mt-24">
-                {{ $project->info_en }}
+                {!! $project->info_en !!}
             </div>
             <div class="relative">
                 <img src="{{ $photos->where('gallery_tag', 'pic1')->first()->getFirstMedia()->getUrl() }}"

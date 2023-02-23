@@ -8,10 +8,10 @@
                 {{ $current_photo->name }}
             </div>
             <div class=" text-md text-left mt-4">
-                {{ $current_photo->description }}
+                {!! $current_photo->description !!}
             </div>
             <div class="text-md text-left mt-24">
-                {{ $project->info_en }}
+                {!! $project->info_en !!}
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@
                         <p class="text-gray-900 text-xl font-strong mb-2">{{ $p->name }}</p>
                         <p class="text-gray-700 text-md font-medium mb-2">{{ $p->info_time }}</p>
                         <p class="text-gray-700 text-base mb-4">
-                            {{ Str::words($p->info_en, 20, ' ...') }}
+                            {!! Str::words($p->info_en, 20, ' ...') !!}
                         </p>
                         <a href="{{ route('gallery.project', ['project' => $p]) }}"
                             class="text-md leading-tight lowercase hover:text-blue-700  transition duration-150 ease-in-out">{{ __('more') }}

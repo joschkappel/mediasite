@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="w-full text-2xl text-left bg-white m-2 p-2">
                                     <p> {{ $p->name }} </p>
-                                    <p class="text-gray-600 text-base"> {{ $p->description }}</p>
+                                    <p class="text-gray-600 text-base"> {!! $p->description !!}</p>
                                 </div>
                             </div>
                         </div>
