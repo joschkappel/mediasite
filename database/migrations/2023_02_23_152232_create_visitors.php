@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('page_hits')->default(0);
             $table->date('visited_at');
-            $table->unique('project_id', 'resource', 'visited_at');
+            // $table->unique('project_id', 'resource', 'visited_at');
         });
     }
 
