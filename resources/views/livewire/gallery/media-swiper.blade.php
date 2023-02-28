@@ -24,7 +24,7 @@
                                     <img src="{{ $p->getFirstMedia()->getUrl() }}" alt="{{ $p->name }}"
                                         srcSet="{{ $p->getFirstMedia()->getSrcSet() }}">
                                 </div>
-                                <div class="w-full text-2xl text-left bg-white m-2 p-2">
+                                <div class="w-full text-2xl text-left bg-white m-2 p-2" wire:ignore>
                                     <p> {{ $p->name }} </p>
                                     <p class="text-gray-600 text-base"> {!! $p->description !!}</p>
                                 </div>

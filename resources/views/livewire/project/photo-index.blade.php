@@ -4,11 +4,18 @@
             <h2 class="font-semibold text-xl text-blue-800 leading-tight flex justify-between">
                 @isset($project->id)
                     {{ __('Photos of Project ') }} {{ '" ' . $project->name . ' "' }}
-                    <span
-                        class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap  font-bold bg-blue-600 text-white rounded">
-                        <a href="{{ route('photo.create', ['project' => $project]) }}"
-                            class="font-semibold text-sm ease-in-out mb-4 ">@lang('Add Photos')</a>
-                    </span>
+                    <div class="flex space-x-2 justify_end">
+                        <span
+                            class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap  font-bold bg-blue-600 text-white rounded">
+                            <a href="{{ route('photo.create', ['project' => $project]) }}"
+                                class="font-semibold text-sm ease-in-out mb-4 ">@lang('Add a Photo')</a>
+                        </span>
+                        <span
+                            class="inline-block py-1.5 px-2.5 leading-none text-center whitespace-nowrap  font-bold bg-blue-600 text-white rounded">
+                            <a href="{{ route('photos.assign', ['project' => $project]) }}"
+                                class="font-semibold text-sm ease-in-out mb-4 ">@lang('Upload Photos')</a>
+                        </span>
+                    </div>
                 @else
                     {{ __('Select a Project to see its Photos') }}
                 @endisset

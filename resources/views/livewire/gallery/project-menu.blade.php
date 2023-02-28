@@ -11,7 +11,7 @@
                         srcset="{{ $p->topPhoto()->getFirstMedia()->getSrcset() }}" alt="{{ $p->topPhoto()->name }}" />
 
 
-                    <div class="p-2">
+                    <div class="p-2" wire:ignore>
                         <p class="text-gray-900 text-xl font-strong mb-2">{{ $p->name }}</p>
                         <p class="text-gray-700 text-md font-medium mb-2">{{ $p->info_time }}</p>
                         <p class="text-gray-700 text-base mb-4">

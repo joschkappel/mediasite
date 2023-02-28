@@ -20,13 +20,10 @@
                     <img src="{{ $p->getFirstMedia()->getUrl() }}" alt="{{ $p->name }}">
                     <span class="pswp-caption-content">
                         <p class="text-2xl font-semibold">{{ $p->name }}</p>
-                        <p>{!! $p->description !!}</p>
+                        <p>{{ $p->description }}</p>
                     </span>
                 </a>
             @endforeach
         </div>
 
     </div>
-    @push('scripts')
-        <script></script>
-    @endpush

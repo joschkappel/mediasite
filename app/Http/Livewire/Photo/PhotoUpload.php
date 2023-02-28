@@ -35,6 +35,7 @@ class PhotoUpload extends Component
     }
     public function save()
     {
+        ini_set('memory_limit', '512M');
         $validData = $this->validate();
         [$width, $height] = $this->getDimensions($this->photo->path()); // here we get a width/height
 

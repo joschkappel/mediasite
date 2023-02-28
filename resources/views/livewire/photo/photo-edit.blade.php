@@ -108,7 +108,7 @@
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="gallery_type" value="{{ __('Gallery Template') }}" />
                         <x-jet-input id="gallery_type" type="text" :disabled="true"
-                            class="mt-1 block w-full bg-gray-100" bindTo="gallery_type" />
+                            class="mt-1 block w-full bg-gray-100" value="{{ $gallery_type }}" />
                     </div>
                     <!-- Gallery tag -->
                     <div class="col-span-6 sm:col-span-4">

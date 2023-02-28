@@ -2,7 +2,7 @@
     <div class="grid md:grid-cols-2 gap-8 p-2 h-screen">
         <x-gallery.carousel :current-idx="$current_key" :photo="$current_photo" :max-idx="$max_key">
         </x-gallery.carousel>
-        <div>
+        <div wire:ignore>
             <div class="text-semibold
                 text-2xl text-left mt-4">
                 {{ $current_photo->name }}

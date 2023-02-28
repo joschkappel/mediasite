@@ -8,7 +8,7 @@ Alpine.plugin(focus);
 
 Alpine.start();
 
-import 'tw-elements';
+//import * as te from 'tw-elements';
 
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import PhotoSwipeDynamicCaption from 'photoswipe-dynamic-caption-plugin';
