@@ -28,6 +28,7 @@
             display: none !important;
         }
     </style>
+
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @livewireStyles
 </head>
@@ -93,8 +94,6 @@
             };
         </script>
     @endif
-
-
 
     @stack('scripts')
     @livewireScripts

@@ -17,12 +17,12 @@ class ProjectObserver
         $tags = collect($project->gallery_type->tags());
         foreach ($tags as $tag) {
             if ($tag == 'carousel') {
-                for ($i = 0; $i < 5; $i++) {
+                for ($i = 0; $i < config('mediasite.carousel_photos', 5); $i++) {
                     $saved_photo = $project->photos()->create([
                         'gallery_tag' => $tag,
                         'gallery_position' => $i,
-                        'name' => 'placeholder',
-                        'description' => 'please add image file',
+                        'name' => 'please add image file',
+                        'description' => 'placeholder',
                         'active' => false,
                         'show_on_main' => false,
                     ]);
@@ -31,8 +31,8 @@ class ProjectObserver
             } else {
                 $saved_photo = $project->photos()->create([
                     'gallery_tag' => $tag,
-                    'name' => 'placeholder',
-                    'description' => 'please add image file',
+                    'description' => 'placeholder',
+                    'name' => 'please add image file',
                     'active' => false,
                     'show_on_main' => false,
                 ]);

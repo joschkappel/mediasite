@@ -10,6 +10,7 @@ use Rappasoft\LaravelLivewireTables\Views\Columns\ImageColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 
@@ -38,6 +39,8 @@ class ProjectDatatable extends DataTableComponent
         foreach ($project->photos as $p) {
             $p->delete();
         }
+        DB::table('visitors')->where('project_id', $project->id)->delete();
+
         $project->delete();
     }
     public function configure(): void
