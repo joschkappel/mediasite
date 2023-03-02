@@ -62,6 +62,14 @@ class PhotoUploadBatch extends Component
         $this->assignedMedia = [];
     }
 
+    public function undrop($photo_id)
+    {
+        $media_idx = array_search($photo_id, $this->assignedMedia);
+        if ($media_idx !== false) {
+            unset($this->assignedMedia[$media_idx]);
+        }
+    }
+
     public function mount()
     {
         $this->selectedMedia = [];

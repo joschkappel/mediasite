@@ -45,11 +45,20 @@
                         @foreach ($selectedMedia as $index => $p)
                             @if (($assignedMedia[$index] ?? null) == null)
                                 <img id="img{{ '@' . $index }}" src=" {{ $p->temporaryUrl() }}" class="inline p-2 w-20"
-                                    :class="{ 'border-8 bg-red-700': dragging }" draggable="true"
-                                    x-data="{ dragging: false }" x-on:dragend="dragging = false"
+                                    wire:key="dragimg{{ $index }}" :class="{ 'border-8 bg-red-700': dragging }"
+                                    draggable="true" x-data="{ dragging: false }" x-on:dragend="dragging = false"
                                     x-on:dragstart.self="dragging = true;
-                                event.dataTransfer.effectAllowed = 'move';
-                                event.dataTransfer.setData('text/plain', event.target.id);">
+                                    event.dataTransfer.effectAllowed='move' ;
+                                    event.dataTransfer.setData('text/plain', event.target.id);">
+                            @else
+                                <div id="dragbox{{ '@' . $index }}" wire:key="dragbox{{ $index }}"
+                                    class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-2 text-center flex">
+                                    <p id="drag-area{{ $index }}" class="text-xs font_medium flex-wrap w-16">
+                                        Click on picture below
+                                        to
+                                        get it back
+                                    </p>
+                                </div>
                             @endif
                         @endforeach
                     </div>
@@ -75,9 +84,9 @@
                         <div class="block row-span-3">
                             <x-jet-label value="{{ 'Bild no. ' . $loop->index + 1 }}" />
                             @if (array_search($photo['id'], $assignedMedia) !== false)
-                                <div id="dropbox"
+                                <div id="dropbox" wire:key="{{ $loop->index }}"
                                     class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-2 text-center flex">
-                                    <img
+                                    <img wire:click="undrop({{ $photo['id'] }})"
                                         src=" {{ $selectedMedia[array_search($photo['id'], $assignedMedia)]->temporaryUrl() }}">
                                 </div>
                             @else
