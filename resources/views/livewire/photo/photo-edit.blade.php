@@ -124,15 +124,12 @@
                         <x-jet-input-error for="gallery_tag" class="mt-2" />
                     </div>
                     <!-- Show on Main -->
-                    <div class="col-span-6 sm:col-span-4 text-md">
-                        <div class="form-check">
-                            <x-form.checkbox bindto="show_on_main" label="{{ __('Show on main') }}"
-                                :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
-                        </div>
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-form.checkbox label="{{ __('Show on main') }}" for="show_on_main" :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
                     </div>
                     <!-- Active -->
-                    <div class="col-span-6 sm:col-span-4 text-md">
-                        <x-form.checkbox bindto="active" label="{{ __('Active') }}" :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
+                    <div class="col-span-6 sm:col-span-4">
+                        <x-form.checkbox label="{{ __('Active') }}" for="active" :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
                 </x-slot>
                 <x-slot name="actions">
                     <x-jet-action-message class="mr-3" on="saved">

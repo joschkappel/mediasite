@@ -62,7 +62,7 @@ class ProjectEdit extends Component
         ]);
         Log::info($validData);
         $this->project->update($validData);
-        $this->emit('updated');
+        $this->emit('saved');
     }
     public function render()
     {
