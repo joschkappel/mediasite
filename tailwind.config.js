@@ -10,7 +10,9 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './src/**/*.{html,js}',
     ],
-
+    daisyui: {
+        themes: ["light", "dark"],
+    },
     theme: {
         screens: {
             xs: "574px",
@@ -29,5 +31,6 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('tailwind-scrollbar'),
+        require("daisyui"),
     ],
 };

@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\GalleryType;
 use Illuminate\Console\Command;
 use App\Models\Project;
 use App\Traits\MediaFaker;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Support\Arr;
 
 class MediaCreate extends Command
 {
@@ -45,6 +47,8 @@ class MediaCreate extends Command
                 ['active' => false],
             ))
             ->sequence(fn ($sequence) => ['menu_position' => $sequence->index])
+            ->sequence(fn ($sequence) => ['gallery_type' => GalleryType::from($sequence->index % 4)])
+            ->sequence(fn ($sequence) => ['carousel_size' => Arr::random([3, 4, 5, 6, 7, 8])])
             ->create();
         $this->info($projects->count() . ' projects created');
 

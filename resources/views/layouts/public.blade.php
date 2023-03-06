@@ -62,7 +62,7 @@
 
     @livewire('gallery.footer')
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>
+
     @if (config('mediasite.show_back_to_top'))
         <script>
             const topBtn = document.getElementById("topButton");

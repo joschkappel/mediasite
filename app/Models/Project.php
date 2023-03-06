@@ -22,6 +22,7 @@ class Project extends Model
         'active',
         'watermark',
         'menu_position',
+        'carousel_size'
     ];
 
     protected $casts = [

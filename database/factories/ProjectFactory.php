@@ -26,6 +26,7 @@ class ProjectFactory extends Factory
             'name' => fake()->word(),
             'type' => collect(ProjectType::cases())->random(),
             'gallery_type' => collect(GalleryType::cases())->random(),
+            'carousel_size' => config('mediasite.carousel_photos'),
             'info_time' => fake()->year('-10 years'),
             'info_de' => fake()->text(350),
             'info_en' => fake()->text(350),

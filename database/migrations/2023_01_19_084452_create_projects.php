@@ -24,7 +24,7 @@ return new class extends Migration
             // start ENUM GalleryType
             $table->integer('gallery_type')->default(GalleryType::CAROUSEL->value);
             // end ENUM
-
+            $table->integer('carousel_size')->default(config('mediasite.carousel_photos'));
             $table->boolean('active')->default(true);
             $table->string('info_time'); // eg 'run during 2022' or 'from 2021 to 2022'
             $table->text('info_de')->nullable();

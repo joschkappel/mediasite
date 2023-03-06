@@ -81,6 +81,11 @@ class ProjectDatatable extends DataTableComponent
                 ->format(
                     fn ($value, $row, Column $column) => $value->description()
                 ),
+            Column::make("Gallery Type", 'gallery_type')
+                ->sortable()
+                ->format(
+                    fn ($value, $row, Column $column) => $value->description()
+                ),
             BooleanColumn::make("Active")
                 ->sortable(),
             Column::make("Created at", "created_at")

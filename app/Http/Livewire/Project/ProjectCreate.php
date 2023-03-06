@@ -20,6 +20,7 @@ class ProjectCreate extends Component
     public $menu_position;
     public $positions;
     public $set_positions;
+    public $carousel_size;
 
 
     public function mount()
@@ -29,6 +30,7 @@ class ProjectCreate extends Component
         $this->positions = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
         $this->set_positions = Project::where('type', $this->type)->pluck('menu_position');
         $this->menu_position = $this->positions->diff($this->set_positions)->first();
+        $this->carousel_size = config('mediasite.carousel_photos');
     }
 
     public function setPosition($new_position)
@@ -50,6 +52,7 @@ class ProjectCreate extends Component
             'info_de' => 'required_without:info_en|max:400',
             'info_en' => 'required_without:info_de|max:400',
             'watermark' => 'nullable|sometimes|string|max:20',
+            'carousel_size' => 'required|integer|min:3|max:15',
         ]);
         // Log::info($validData);
         Project::create($validData);

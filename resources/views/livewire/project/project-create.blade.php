@@ -51,6 +51,30 @@
                         </select>
                         <x-jet-input-error for="gallery_type" class="mt-2" />
                     </div>
+                    <div class="form-control col-span-6 sm:col-span-4">
+                        <label class="label">
+                            <span class="label-text">{{ __('Number of photos in slider/carousel') }}</span>
+                        </label>
+
+                        <input type="range" min="3" max="15"
+                            value="{{ config('mediasite.carousel_photos') }}" class="range range-info" step="1"
+                            wire:model.defer="carousel_size" />
+                        <div class="w-full flex justify-between text-xs px-2 font-mono">
+                            <span> 3</span>
+                            <span> 4</span>
+                            <span> 5</span>
+                            <span> 6</span>
+                            <span> 7</span>
+                            <span> 8</span>
+                            <span> 9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>12</span>
+                            <span>13</span>
+                            <span>14</span>
+                            <span>15</span>
+                        </div>
+                    </div>
                     <!-- Info Time -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="info_time" value="{{ __('Project Period') }}" />
@@ -73,11 +97,14 @@
                                         </li>
                                     @else
                                         @if ($menu_position == $pos)
-                                            <li class="page-item active"><button type="button"
+                                            <li class="page-item active">
+                                                <button type="button"
                                                     class="page-link relative block py-1.5 px-3 border-0 bg-blue-600 outline-none transition-all duration-300 rounded-full text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-                                                    wire:click="releasePosition()">{{ $pos }}<span
-                                                        class="visually-hidden"
-                                                        wire:model.defer="menu_position">{{ $pos }}</span></button>
+                                                    wire:click="releasePosition()">
+                                                    <span class="visually-hidden"
+                                                        wire:model.defer="menu_position">{{ $pos }}
+                                                    </span>
+                                                </button>
                                             </li>
                                         @else
                                             <li class="page-item"><button type="button"
@@ -89,7 +116,8 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="text-sm text-gray-500 mt-1">select where you want to position this project in the
+                        <div class="text-sm text-gray-500 mt-1">select where you want to position this project in
+                            the
                             menu</div>
                         <x-jet-input-error for="menu_position" class="mt-2" />
                     </div>
