@@ -42,7 +42,7 @@ class PhotoEdit extends Component
             // 'gallery_position' => ['required',  Rule::unique('photos')->where(fn ($query) => $query->where('project_id', $this->photo->project_id))]
         ]);
 
-        $saved_photo = $this->photo->save();
+        $saved_photo = $this->photo->update($validData);
         $this->photo->refresh();
 
         // there MUST be only one shown on main

@@ -106,7 +106,7 @@
                         {{ __('Project Updated.') }}
                     </x-form.action-toast>
 
-                    <x-form.button type="primary">
+                    <x-form.button>
                         {{ __('Save') }}
                     </x-form.button>
                 </x-slot>

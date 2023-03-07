@@ -18,12 +18,12 @@
                     </x-slot>
                     <x-slot name="form">
                         <div class="col-span-6 sm:col-span-4">
-                            <x-jet-label for="photo" value="{{ __('Photo') }}" />
-
                             <!-- Photo Preview -->
-                            <span class="block  w-20 h-20 bg-cover bg-no-repeat bg-center">
-                                <img src="{{ $photo->getFirstMedia()->getUrl('preview') }}" />
-                            </span>
+                            <div class="avatar">
+                                <div class="w-24 rounded">
+                                    <img src="{{ $photo->getFirstMedia()->getUrl('preview') }}" />
+                                </div>
+                            </div>
                         </div>
                     </x-slot>
                 </x-jet-form-section>
@@ -92,56 +92,46 @@
 
                     <!-- Name -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="name" value="{{ __('Title') }}" />
-                        <x-jet-input id="name" type="text" class="mt-1 block w-full"
-                            wire:model.defer="name" />
-                        <x-jet-input-error for="name" class="mt-2" />
+                        <x-form.input label="{{ __('Title') }}" for="name" />
                     </div>
                     <!-- Description -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="description" value="{{ __('Description') }}" />
-                        <x-jet-input id="description" type="text" class="mt-1 block w-full"
-                            wire:model.defer="description" autocomplete="description" />
-                        <x-jet-input-error for="description" class="mt-2" />
+                        <x-form.input label="{{ __('Description') }}" for="description" />
                     </div>
                     <!-- Gallery type -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="gallery_type" value="{{ __('Gallery Template') }}" />
-                        <x-jet-input id="gallery_type" type="text" :disabled="true"
-                            class="mt-1 block w-full bg-gray-100" value="{{ $gallery_type }}" />
+                        <x-form.input label="{{ __('Gallery Template') }}" for="gallery_type" :disabled="true" />
                     </div>
                     <!-- Gallery tag -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="gallery_tag" value="{{ __('Gallery Tag') }}" />
-                        <select id="gallery_tag"
-                            class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                            wire:model.defer="gallery_tag">
+                        <x-form.select label="{{ __('Gallery Tag') }}" for="gallery_tag">
                             @foreach ($tags as $tag)
                                 <option value="{{ $tag }}">
                                     {{ $tag }}</option>
                             @endforeach
-                        </select>
-                        <x-jet-input-error for="gallery_tag" class="mt-2" />
+                        </x-form.select>
                     </div>
                     <!-- Show on Main -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-form.checkbox label="{{ __('Show on main') }}" for="show_on_main" :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
+                        <x-form.checkbox label="{{ __('Show on main') }}" for="show_on_main" :disabled="isset($photoimg) and !$photo->hasMedia()" />
                     </div>
                     <!-- Active -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-form.checkbox label="{{ __('Active') }}" for="active" :disabled="isset($photoimg) == null and !$photo->hasMedia()" />
+                        <x-form.checkbox label="{{ __('Active') }}" for="active" :disabled="isset($photoimg) and !$photo->hasMedia()" />
                 </x-slot>
                 <x-slot name="actions">
-                    <x-jet-action-message class="mr-3" on="saved">
-                        {{ __('Updated.') }}
-                    </x-jet-action-message>
+                    <x-form.action-toast class="mr-3" on="saved">
+                        {{ __('Photo Updated.') }}
+                    </x-form.action-toast>
 
-                    <x-jet-button>
-                        {{ __('Save') }}
-                    </x-jet-button>
-                    <x-jet-danger-button wire:click.prevent="cancel()">
+                    <x-form.button type="btn-error" wire:click.prevent="cancel()">
                         {{ __('Cancel') }}
-                    </x-jet-danger-button>
+                    </x-form.button>
+
+                    <x-form.button :submit="true">
+                        {{ __('Save') }}
+                    </x-form.button>
+
                 </x-slot>
             </x-jet-form-section>
 
