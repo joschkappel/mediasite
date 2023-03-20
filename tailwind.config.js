@@ -3,6 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     mode: 'jit',
+    darkMode: 'class', // media
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './vendor/laravel/jetstream/**/*.blade.php',
@@ -11,7 +12,7 @@ module.exports = {
         './src/**/*.{html,js}',
     ],
     daisyui: {
-        themes: ["light", "dark"],
+        themes: ["emerald", "business"],
     },
     theme: {
         screens: {
